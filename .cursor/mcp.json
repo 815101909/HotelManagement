@@ -1,0 +1,19 @@
+{
+    "mcpServers": {
+      "mcp-mysql-server": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@smithery/cli@latest",
+          "run",
+          "@f4ww4z/mcp-mysql-server",
+          "--key",
+          "ef1806c3-eb1b-4e5d-93f7-2ea4b2bca4fe",
+          "--profile",
+          "genuine-chinchilla-Kxh1NZ"
+        ]
+      }
+    }
+  }

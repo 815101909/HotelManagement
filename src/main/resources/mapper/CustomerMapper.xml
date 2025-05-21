@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotelmanagement.mapper.CustomerMapper">
+    <resultMap id="CustomerResultMap" type="com.example.hotelmanagement.entity.Customer">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="gender" column="gender" />
+        <result property="phone" column="phone" />
+        <result property="idCard" column="id_card" />
+        <result property="email" column="email" />
+        <result property="createTime" column="create_time" />
+        <result property="type" column="type" />
+        <result property="status" column="status" />
+        <result property="idType" column="id_type" />
+        <result property="address" column="address" />
+        <result property="notes" column="notes" />
+        <result property="spent" column="spent" />
+        <result property="visits" column="visits" />
+    </resultMap>
+
+    <select id="findAll" resultMap="CustomerResultMap">
+        SELECT c.*,
+        (SELECT COUNT(*) FROM booking b WHERE b.customer_id = c.id) AS visits,
+        (SELECT SUM(total_price) FROM booking b WHERE b.customer_id = c.id AND (b.payment_status = 'paid' OR b.payment_status = '已付款')) AS spent
+        FROM customer c
+    </select>
+
+    <select id="findById" resultMap="CustomerResultMap">
+        SELECT c.*,
+        (SELECT COUNT(*) FROM booking b WHERE b.customer_id = c.id) AS visits,
+        (SELECT SUM(total_price) FROM booking b WHERE b.customer_id = c.id AND (b.payment_status = 'paid' OR b.payment_status = '已付款')) AS spent
+        FROM customer c
+        WHERE c.id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.hotelmanagement.entity.Customer">
+        INSERT INTO customer (name, gender, phone, id_card, email, create_time, type, status, id_type, address, notes)
+        VALUES (#{name}, #{gender}, #{phone}, #{idCard}, #{email}, NOW(), #{type}, #{status}, #{idType}, #{address}, #{notes})
+    </insert>
+
+    <update id="update" parameterType="com.example.hotelmanagement.entity.Customer">
+        UPDATE customer SET name=#{name}, gender=#{gender}, phone=#{phone}, id_card=#{idCard}, email=#{email}, type=#{type}, status=#{status}, id_type=#{idType}, address=#{address}, notes=#{notes}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM customer WHERE id=#{id}
+    </delete>
+</mapper>
+

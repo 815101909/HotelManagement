@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotelmanagement.mapper.BookingMapper">
+    <select id="findAllWithDetails" resultType="com.example.hotelmanagement.entity.BookingVO">
+        SELECT
+            b.id,
+            b.customer_id AS customerId,
+            b.room_id AS roomId,
+            b.checkin_date AS checkinDate,
+            b.checkout_date AS checkoutDate,
+            b.status,
+            b.payment_status AS paymentStatus,
+            b.total_price AS totalPrice,
+            b.create_time AS createTime,
+            c.name AS customerName,
+            r.room_number AS roomNumber
+        FROM booking b
+        LEFT JOIN customer c ON b.customer_id = c.id
+        LEFT JOIN room r ON b.room_id = r.id
+    </select>
+</mapper> 
