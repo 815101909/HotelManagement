@@ -203,20 +203,24 @@
             <div class="pie-chart-container">
               <div class="pie-chart">
                 <!-- 使用conic-gradient实现饼图 -->
-                <div class="pie-conic" style="background: conic-gradient(#4a89dc 0% 55%, #8e9fc4 55% 75%, #59bb6e 75% 100%); transform: rotate(-90deg);"></div>
+                <div class="pie-conic" style="background: conic-gradient(#4a89dc 0% 40%, #8e9fc4 40% 55%, #59bb6e 55% 80%, #e74c3c 80% 100%); transform: rotate(-90deg);"></div>
               </div>
               <div class="pie-legend">
                 <div class="legend-item">
                   <span class="legend-color" style="background-color: #8e9fc4;"></span>
-                  <span class="legend-text">单人间 (5%)</span>
+                  <span class="legend-text">单人间 (15%)</span>
                 </div>
                 <div class="legend-item">
                   <span class="legend-color" style="background-color: #4a89dc;"></span>
-                  <span class="legend-text">双人间 (45%)</span>
+                  <span class="legend-text">双人间 (40%)</span>
                 </div>
                 <div class="legend-item">
                   <span class="legend-color" style="background-color: #59bb6e;"></span>
-                  <span class="legend-text">豪华套房 (50%)</span>
+                  <span class="legend-text">豪华套房 (25%)</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-color" style="background-color: #e74c3c;"></span>
+                  <span class="legend-text">标准间 (20%)</span>
                 </div>
               </div>
             </div>
@@ -261,7 +265,6 @@
                 <th>收入</th>
                 <th>支出</th>
                 <th>净额</th>
-                <th>关联订单</th>
                 <th>操作</th>
               </tr>
             </thead>
@@ -278,17 +281,20 @@
                   {{ (item.income - item.expense) >= 0 ? '¥' + formatNumber(item.income - item.expense) : '-¥' + formatNumber(Math.abs(item.income - item.expense)) }}
                 </td>
                 <td>
-                  <span v-if="item.booking_id" class="booking-badge">
-                    #{{ item.booking_id }}
-                  </span>
-                  <span v-else>-</span>
-                </td>
-                <td>
                   <div class="action-buttons">
-                    <button v-if="item.id" class="icon-button view" title="查看详情" @click="viewBookingDetails(item.booking_id)">
+                    <button v-if="item.id && item.booking_id" class="icon-button view" title="查看详情" @click="viewBookingDetails(item.booking_id)">
                       <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </button>
+                    <!-- 删除按钮 - 只对支出数据显示 -->
+                    <button v-if="item.expense > 0" class="icon-button delete" title="删除支出" @click="deleteFinancialRecord(item.id)">
+                      <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 6H5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </button>
                   </div>
@@ -303,7 +309,7 @@
                 <td class="amount" :class="totalIncome - totalExpense >= 0 ? 'positive' : 'negative'">
                   {{ (totalIncome - totalExpense) >= 0 ? '¥' + formatNumber(totalIncome - totalExpense) : '-¥' + formatNumber(Math.abs(totalIncome - totalExpense)) }}
                 </td>
-                <td colspan="2"></td>
+                <td></td>
               </tr>
             </tfoot>
           </table>
@@ -831,6 +837,7 @@
           }
           
           return {
+            id: expense.id, // 确保ID被正确设置
             date: dateStr,
             category: category,
             description: description,
@@ -854,6 +861,7 @@
         // 添加到财务明细
         expenseRecords.value.forEach(item => {
           financialData.value.push({
+            id: item.id, // 确保ID被正确添加到财务数据
             date: item.date,
             category: item.category,
             description: item.description,
@@ -1192,7 +1200,7 @@
   // 更新饼图显示
   const updatePieChart = () => {
     // 从财务数据中提取不同房型的收入
-    const roomTypeIncome = { '单人间': 0, '双人间': 0, '套房': 0 };
+    const roomTypeIncome = { '单人间': 0, '双人间': 0, '套房': 0, '标准间': 0 };
     let totalIncomeAmount = 0;
     
     financialData.value.forEach(item => {
@@ -1200,7 +1208,8 @@
         const category = 
           item.category === '单人间' ? '单人间' : 
           item.category === '双人间' ? '双人间' : 
-          item.category === '套房' ? '套房' : null;
+          item.category === '套房' ? '套房' :
+          item.category === '标准间' ? '标准间' : null;
         
         if (category) {
           roomTypeIncome[category] += item.income;
@@ -1213,22 +1222,26 @@
     let singleRoomPercentage = 0;
     let doubleRoomPercentage = 0;
     let suitePercentage = 0;
+    let standardRoomPercentage = 0;
     
     if (totalIncomeAmount > 0) {
       singleRoomPercentage = Math.round((roomTypeIncome['单人间'] / totalIncomeAmount) * 100);
       doubleRoomPercentage = Math.round((roomTypeIncome['双人间'] / totalIncomeAmount) * 100);
       suitePercentage = Math.round((roomTypeIncome['套房'] / totalIncomeAmount) * 100);
+      standardRoomPercentage = Math.round((roomTypeIncome['标准间'] / totalIncomeAmount) * 100);
       
       // 确保总和为100%
-      const sum = singleRoomPercentage + doubleRoomPercentage + suitePercentage;
+      const sum = singleRoomPercentage + doubleRoomPercentage + suitePercentage + standardRoomPercentage;
       if (sum !== 100 && sum > 0) {
         // 调整最大的那个值以确保总和为100
-        if (singleRoomPercentage >= doubleRoomPercentage && singleRoomPercentage >= suitePercentage) {
-          singleRoomPercentage = 100 - doubleRoomPercentage - suitePercentage;
-        } else if (doubleRoomPercentage >= singleRoomPercentage && doubleRoomPercentage >= suitePercentage) {
-          doubleRoomPercentage = 100 - singleRoomPercentage - suitePercentage;
+        if (singleRoomPercentage >= doubleRoomPercentage && singleRoomPercentage >= suitePercentage && singleRoomPercentage >= standardRoomPercentage) {
+          singleRoomPercentage = 100 - doubleRoomPercentage - suitePercentage - standardRoomPercentage;
+        } else if (doubleRoomPercentage >= singleRoomPercentage && doubleRoomPercentage >= suitePercentage && doubleRoomPercentage >= standardRoomPercentage) {
+          doubleRoomPercentage = 100 - singleRoomPercentage - suitePercentage - standardRoomPercentage;
+        } else if (suitePercentage >= singleRoomPercentage && suitePercentage >= doubleRoomPercentage && suitePercentage >= standardRoomPercentage) {
+          suitePercentage = 100 - singleRoomPercentage - doubleRoomPercentage - standardRoomPercentage;
         } else {
-          suitePercentage = 100 - singleRoomPercentage - doubleRoomPercentage;
+          standardRoomPercentage = 100 - singleRoomPercentage - doubleRoomPercentage - suitePercentage;
         }
       }
     }
@@ -1239,13 +1252,14 @@
       pieEl.style.background = `conic-gradient(
         #4a89dc 0% ${doubleRoomPercentage}%, 
         #8e9fc4 ${doubleRoomPercentage}% ${doubleRoomPercentage + singleRoomPercentage}%, 
-        #59bb6e ${doubleRoomPercentage + singleRoomPercentage}% 100%)`;
+        #59bb6e ${doubleRoomPercentage + singleRoomPercentage}% ${doubleRoomPercentage + singleRoomPercentage + suitePercentage}%,
+        #e74c3c ${doubleRoomPercentage + singleRoomPercentage + suitePercentage}% 100%)`;
       pieEl.style.transform = 'rotate(-90deg)';
     }
     
     // 更新图例
     const legendItems = document.querySelectorAll('.pie-legend .legend-item');
-    if (legendItems.length >= 3) {
+    if (legendItems.length >= 4) {
       // 单人间图例
       const singleRoomText = legendItems[0].querySelector('.legend-text');
       if (singleRoomText) {
@@ -1262,6 +1276,12 @@
       const suiteRoomText = legendItems[2].querySelector('.legend-text');
       if (suiteRoomText) {
         suiteRoomText.textContent = `豪华套房 (${suitePercentage}%)`;
+      }
+      
+      // 标准间图例
+      const standardRoomText = legendItems[3].querySelector('.legend-text');
+      if (standardRoomText) {
+        standardRoomText.textContent = `标准间 (${standardRoomPercentage}%)`;
       }
     }
   }
@@ -1980,6 +2000,56 @@
     
     // 应用过滤，始终获取最新的服务器数据
     fetchFinancialData();
+  }
+  
+  // 删除财务记录
+  const deleteFinancialRecord = async (id) => {
+    console.log('尝试删除记录ID:', id);
+    
+    if (!id) {
+      alert('无法删除此记录，ID不存在');
+      return;
+    }
+    
+    if (!confirm('确定要删除这条支出记录吗？')) {
+      return;
+    }
+    
+    try {
+      isLoading.value = true;
+      // 调用API删除记录
+      const response = await axios.delete(`/api/admin/finance/expenses/${id}`);
+      console.log('删除支出记录成功:', response.data);
+      
+      // 从财务数据中移除该记录
+      const index = financialData.value.findIndex(item => item.id === id && item.expense > 0);
+      if (index !== -1) {
+        // 更新总支出
+        const expense = financialData.value[index].expense || 0;
+        totalExpense.value -= expense;
+        totalProfit.value = totalIncome.value - totalExpense.value;
+        
+        // 更新支出分类统计
+        const category = financialData.value[index].category;
+        if (category && expenseByCategory.value[category]) {
+          expenseByCategory.value[category] -= expense;
+          if (expenseByCategory.value[category] <= 0) {
+            delete expenseByCategory.value[category];
+          }
+        }
+        
+        // 从数组中移除该记录
+        financialData.value.splice(index, 1);
+        
+        // 更新图表
+        updateCharts();
+      }
+    } catch (error) {
+      console.error('删除支出记录失败:', error);
+      alert('删除支出记录失败: ' + (error.response?.data?.message || error.message || '未知错误'));
+    } finally {
+      isLoading.value = false;
+    }
   }
   
   </script>
@@ -2882,6 +2952,12 @@
   
   .legend-color.套房 {
     background-color: #59bb6e;
+  }
+  
+  /* 添加标准间专用颜色 */
+  .category-badge.标准间 {
+    background-color: #fee2e2;
+    color: #b91c1c;
   }
   
   .legend-text {
