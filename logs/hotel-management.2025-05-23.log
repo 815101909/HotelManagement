@@ -1757,3 +1757,154 @@
 2025-05-23 02:16:03.821 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findAll - ==>  Preparing: SELECT * FROM room
 2025-05-23 02:16:03.822 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findAll - ==> Parameters: 
 2025-05-23 02:16:03.823 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findAll - <==      Total: 4
+2025-05-23 02:18:08.439 [http-nio-8080-exec-6] INFO  c.e.h.controller.FinanceController - 获取到5条收入记录
+2025-05-23 02:18:08.448 [http-nio-8080-exec-4] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==>  Preparing: SELECT * FROM expense ORDER BY expense_date DESC
+2025-05-23 02:18:08.449 [http-nio-8080-exec-4] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==> Parameters: 
+2025-05-23 02:18:08.450 [http-nio-8080-exec-4] DEBUG c.e.h.mapper.ExpenseMapper.findAll - <==      Total: 14
+2025-05-23 02:18:08.458 [http-nio-8080-exec-5] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:18:08.458 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:18:08.459 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:18:08.459 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:18:08.476 [http-nio-8080-exec-9] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:18:08.476 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:18:08.476 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:18:08.478 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:18:08.478 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:18:08.478 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:18:08.478 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:18:08.478 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:18:08.478 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 2(Integer)
+2025-05-23 02:18:08.479 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:18:08.479 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:18:08.479 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 3(Integer)
+2025-05-23 02:18:08.480 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:18:08.480 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:18:08.480 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:18:08.481 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:18:08.481 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:18:08.482 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 4(Integer)
+2025-05-23 02:18:08.482 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:18:08.490 [http-nio-8080-exec-10] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:18:08.490 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:18:08.490 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:18:08.491 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:18:08.492 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.RoomMapper.findAll - ==>  Preparing: SELECT * FROM room
+2025-05-23 02:18:08.492 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.RoomMapper.findAll - ==> Parameters: 
+2025-05-23 02:18:08.492 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.RoomMapper.findAll - <==      Total: 4
+2025-05-23 02:21:24.486 [http-nio-8080-exec-2] INFO  c.e.h.controller.FinanceController - 获取到5条收入记录
+2025-05-23 02:21:24.504 [http-nio-8080-exec-3] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==>  Preparing: SELECT * FROM expense ORDER BY expense_date DESC
+2025-05-23 02:21:24.504 [http-nio-8080-exec-3] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==> Parameters: 
+2025-05-23 02:21:24.506 [http-nio-8080-exec-3] DEBUG c.e.h.mapper.ExpenseMapper.findAll - <==      Total: 14
+2025-05-23 02:21:24.525 [http-nio-8080-exec-7] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:21:24.526 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:21:24.526 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:21:24.527 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:21:24.551 [http-nio-8080-exec-8] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:21:24.551 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:21:24.551 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:21:24.551 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:21:24.551 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:21:24.551 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:21:24.552 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:21:24.552 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:21:24.552 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 2(Integer)
+2025-05-23 02:21:24.552 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:21:24.553 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:21:24.553 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 3(Integer)
+2025-05-23 02:21:24.553 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:21:24.554 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:21:24.554 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:21:24.554 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:21:24.554 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:21:24.554 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 4(Integer)
+2025-05-23 02:21:24.555 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:21:24.577 [http-nio-8080-exec-6] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:21:24.577 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:21:24.577 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:21:24.578 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:21:24.578 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.RoomMapper.findAll - ==>  Preparing: SELECT * FROM room
+2025-05-23 02:21:24.579 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.RoomMapper.findAll - ==> Parameters: 
+2025-05-23 02:21:24.581 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.RoomMapper.findAll - <==      Total: 4
+2025-05-23 02:21:27.300 [http-nio-8080-exec-4] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==>  Preparing: DELETE FROM expense WHERE id = ?
+2025-05-23 02:21:27.300 [http-nio-8080-exec-4] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==> Parameters: 18(Long)
+2025-05-23 02:21:27.309 [http-nio-8080-exec-4] DEBUG c.e.h.m.ExpenseMapper.deleteById - <==    Updates: 1
+2025-05-23 02:21:38.036 [http-nio-8080-exec-5] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==>  Preparing: DELETE FROM expense WHERE id = ?
+2025-05-23 02:21:38.036 [http-nio-8080-exec-5] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==> Parameters: 17(Long)
+2025-05-23 02:21:38.038 [http-nio-8080-exec-5] DEBUG c.e.h.m.ExpenseMapper.deleteById - <==    Updates: 1
+2025-05-23 02:21:53.172 [http-nio-8080-exec-9] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==>  Preparing: DELETE FROM expense WHERE id = ?
+2025-05-23 02:21:53.173 [http-nio-8080-exec-9] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==> Parameters: 16(Long)
+2025-05-23 02:21:53.174 [http-nio-8080-exec-9] DEBUG c.e.h.m.ExpenseMapper.deleteById - <==    Updates: 1
+2025-05-23 02:22:24.742 [http-nio-8080-exec-1] INFO  c.e.h.controller.FinanceController - 获取到5条收入记录
+2025-05-23 02:22:24.750 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==>  Preparing: SELECT * FROM expense ORDER BY expense_date DESC
+2025-05-23 02:22:24.750 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:24.752 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.ExpenseMapper.findAll - <==      Total: 11
+2025-05-23 02:22:24.772 [http-nio-8080-exec-3] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:22:24.772 [http-nio-8080-exec-3] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:22:24.772 [http-nio-8080-exec-3] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:24.774 [http-nio-8080-exec-3] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:22:24.788 [http-nio-8080-exec-7] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:22:24.788 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:22:24.788 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:24.790 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:22:24.790 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:24.790 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:22:24.792 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:24.792 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:24.792 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 2(Integer)
+2025-05-23 02:22:24.794 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:24.794 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:24.794 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 3(Integer)
+2025-05-23 02:22:24.795 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:24.795 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:24.796 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:22:24.796 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:24.797 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:24.797 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 4(Integer)
+2025-05-23 02:22:24.797 [http-nio-8080-exec-7] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:24.811 [http-nio-8080-exec-8] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:22:24.811 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:22:24.811 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:24.812 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:22:24.813 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findAll - ==>  Preparing: SELECT * FROM room
+2025-05-23 02:22:24.813 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:24.814 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.RoomMapper.findAll - <==      Total: 4
+2025-05-23 02:22:38.532 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.ExpenseMapper.insert - ==>  Preparing: INSERT INTO expense(category, amount, description, expense_date, create_time, update_time, remark) VALUES(?, ?, ?, ?, ?, ?, ?)
+2025-05-23 02:22:38.532 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.ExpenseMapper.insert - ==> Parameters: 人力(String), 1(BigDecimal), 1(String), 2025-05-23 02:22:38.532(Timestamp), 2025-05-23 02:22:38.532(Timestamp), 2025-05-23 02:22:38.532(Timestamp), (String)
+2025-05-23 02:22:38.536 [http-nio-8080-exec-6] DEBUG c.e.h.mapper.ExpenseMapper.insert - <==    Updates: 1
+2025-05-23 02:22:38.555 [http-nio-8080-exec-5] INFO  c.e.h.controller.FinanceController - 获取到5条收入记录
+2025-05-23 02:22:38.564 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==>  Preparing: SELECT * FROM expense ORDER BY expense_date DESC
+2025-05-23 02:22:38.564 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.ExpenseMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:38.565 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.ExpenseMapper.findAll - <==      Total: 12
+2025-05-23 02:22:38.573 [http-nio-8080-exec-10] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:22:38.573 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:22:38.573 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:38.574 [http-nio-8080-exec-10] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:22:38.581 [http-nio-8080-exec-1] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:22:38.581 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:22:38.581 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:38.582 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:22:38.583 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:38.583 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:22:38.583 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:38.583 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:38.583 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 2(Integer)
+2025-05-23 02:22:38.584 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:38.584 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:38.584 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 3(Integer)
+2025-05-23 02:22:38.584 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:38.584 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:38.584 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 1(Integer)
+2025-05-23 02:22:38.585 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:38.585 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==>  Preparing: SELECT * FROM room WHERE id = ?
+2025-05-23 02:22:38.585 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - ==> Parameters: 4(Integer)
+2025-05-23 02:22:38.585 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.RoomMapper.findById - <==      Total: 1
+2025-05-23 02:22:38.592 [http-nio-8080-exec-2] DEBUG c.e.h.s.impl.BookingServiceImpl - 查询所有订单
+2025-05-23 02:22:38.592 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.BookingMapper.findAll - ==>  Preparing: SELECT * FROM booking
+2025-05-23 02:22:38.592 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.BookingMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:38.594 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.BookingMapper.findAll - <==      Total: 5
+2025-05-23 02:22:38.594 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.RoomMapper.findAll - ==>  Preparing: SELECT * FROM room
+2025-05-23 02:22:38.594 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.RoomMapper.findAll - ==> Parameters: 
+2025-05-23 02:22:38.594 [http-nio-8080-exec-2] DEBUG c.e.h.mapper.RoomMapper.findAll - <==      Total: 4
+2025-05-23 02:22:47.742 [http-nio-8080-exec-3] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==>  Preparing: DELETE FROM expense WHERE id = ?
+2025-05-23 02:22:47.742 [http-nio-8080-exec-3] DEBUG c.e.h.m.ExpenseMapper.deleteById - ==> Parameters: 19(Long)
+2025-05-23 02:22:47.744 [http-nio-8080-exec-3] DEBUG c.e.h.m.ExpenseMapper.deleteById - <==    Updates: 1
