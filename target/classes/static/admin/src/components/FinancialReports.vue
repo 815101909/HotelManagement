@@ -304,9 +304,9 @@
             <tfoot>
               <tr>
                 <td colspan="3" class="total-label">总计</td>
-                <td class="amount income">¥{{ formatNumber(totalIncome) }}</td>
-                <td class="amount expense">¥{{ formatNumber(totalExpense) }}</td>
-                <td class="amount" :class="totalIncome - totalExpense >= 0 ? 'positive' : 'negative'">
+                <td class="amount income total-income">¥{{ formatNumber(totalIncome) }}</td>
+                <td class="amount expense total-expense">¥{{ formatNumber(totalExpense) }}</td>
+                <td class="amount total-net" :class="totalIncome - totalExpense >= 0 ? 'positive' : 'negative'">
                   {{ (totalIncome - totalExpense) >= 0 ? '¥' + formatNumber(totalIncome - totalExpense) : '-¥' + formatNumber(Math.abs(totalIncome - totalExpense)) }}
                 </td>
                 <td></td>
@@ -2963,5 +2963,49 @@
   .legend-text {
     font-size: 0.75rem;
     color: #64748b;
+  }
+  
+  /* 在style部分添加新的样式 */
+  .total-net {
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+  
+  .total-net.positive {
+    color: #16a34a;
+    background-color: #dcfce7;
+  }
+  
+  .total-net.negative {
+    color: #dc2626;
+    background-color: #fee2e2;
+  }
+
+  /* 在style部分添加或修改样式 */
+  .total-income {
+    color: #16a34a !important;
+    background-color: #dcfce7 !important;
+    font-weight: 600;
+  }
+
+  .total-expense {
+    color: #dc2626 !important;
+    background-color: #fee2e2 !important;
+    font-weight: 600;
+  }
+
+  .total-net {
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+
+  .total-net.positive {
+    color: #1e40af !important;
+    background-color: #dbeafe !important;
+  }
+
+  .total-net.negative {
+    color: #dc2626 !important;
+    background-color: #fee2e2 !important;
   }
   </style>

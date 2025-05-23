@@ -1,5 +1,7 @@
 package com.example.hotelmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -11,6 +13,7 @@ public class Booking {
     private Date checkoutDate;
     private String status; // booked/checkedin/checkedout/cancelled
     private Double totalPrice;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSX", timezone = "UTC")
     private Date createdAt;
     private String paymentStatus;
     private Boolean syncedToFinance; // 是否已同步到财务系统

@@ -86,19 +86,18 @@
       
       <div class="chart-card">
         <h3 class="chart-title">收入来源</h3>
-        <div class="chart-placeholder">
+        <div class="pie-chart-container">
           <div class="pie-chart">
-            <div v-for="(source, index) in revenueSources" :key="index" 
-                 class="pie-segment" 
-                 :style="{
-                   '--percentage': source.percentage + '%',
-                   '--color': source.color,
-                   '--offset': getSourceOffset(index) + '%'
-                 }"></div>
+            <div class="pie-conic" :style="{
+              background: getConicGradient(),
+              transform: 'rotate(-90deg)'
+            }"></div>
           </div>
           <div class="pie-legend">
-            <div v-for="(source, idx) in revenueSources" :key="idx" class="legend-item">
-              <span class="legend-color" :style="{backgroundColor: source.color}"></span>
+            <div v-for="source in revenueSources" 
+                 :key="source.name" 
+                 class="legend-item">
+              <span class="legend-color" :style="{ backgroundColor: source.color }"></span>
               <span class="legend-text">{{ source.name }} ({{ source.percentage }}%)</span>
             </div>
           </div>
@@ -173,6 +172,18 @@ const revenueSources = ref([])
 
 const recentActivities = ref([])
 
+// 格式化日期为后端需要的格式
+const formatDateForBackend = (date) => {
+  const d = new Date(date)
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  const hours = String(d.getHours()).padStart(2, '0')
+  const minutes = String(d.getMinutes()).padStart(2, '0')
+  const seconds = String(d.getSeconds()).padStart(2, '0')
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+}
+
 // 获取仪表盘数据
 const fetchDashboardData = async () => {
   isLoading.value = true
@@ -192,16 +203,54 @@ const fetchDashboardData = async () => {
     customerStats.value = customerResponse.data
     
     // 收入统计数据
-    const revenueResponse = await axios.get('/api/admin/finance/monthly')
-    revenueStats.value = revenueResponse.data
+    const revenueResponse = await axios.get('/api/admin/finance/details')
+    const financeData = revenueResponse.data
+    revenueStats.value = {
+      monthlyAmount: financeData.totalIncome || 0,
+      yearOverYearGrowth: 0 // 暂时设为0，后续可以根据需求计算
+    }
     
     // 入住率趋势
     const occupancyResponse = await axios.get('/api/admin/rooms/occupancy/weekly')
     occupancyTrend.value = occupancyResponse.data.occupancyRates || []
     
-    // 收入来源
-    const sourceResponse = await axios.get('/api/admin/finance/sources')
-    revenueSources.value = formatRevenueSources(sourceResponse.data)
+    // 收入来源数据
+    const sourceResponse = await axios.get('/api/admin/finance/income-sources')
+    console.log('收入来源数据:', sourceResponse.data)
+    
+    const colors = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444']
+    
+    if (sourceResponse.data && Array.isArray(sourceResponse.data)) {
+      // 创建收入记录数据
+      const now = new Date()
+      const incomeData = {
+        category: '标准间',
+        description: '房间收入',
+        amount: 299.99,
+        date: now.toISOString().split('T')[0], // 只使用日期部分：YYYY-MM-DD
+        status: 'PAID'
+      }
+      
+      console.log('发送的收入数据:', incomeData)
+      
+      try {
+        // 使用同步预订接口
+        const syncResponse = await axios.post('/api/admin/finance/sync-bookings')
+        console.log('同步预订结果:', syncResponse.data)
+        
+        // 刷新数据
+        const refreshResponse = await axios.get('/api/admin/finance/income-sources')
+        if (refreshResponse.data && Array.isArray(refreshResponse.data)) {
+          revenueSources.value = refreshResponse.data.map((source, index) => ({
+            name: source.name,
+            percentage: source.percentage || 0,
+            color: colors[index % colors.length]
+          }))
+        }
+      } catch (err) {
+        console.error('操作失败:', err.response?.data || err.message)
+      }
+    }
     
     // 最近活动
     const activitiesResponse = await axios.get('/api/admin/activities/recent')
@@ -218,26 +267,6 @@ const fetchDashboardData = async () => {
   } finally {
     isLoading.value = false
   }
-}
-
-// 格式化收入来源数据
-const formatRevenueSources = (data) => {
-  const colors = ['#4f46e5', '#10b981', '#f59e0b', '#ef4444']
-  
-  return data.map((source, index) => ({
-    name: source.name,
-    percentage: source.percentage,
-    color: colors[index % colors.length]
-  }))
-}
-
-// 计算饼图偏移量
-const getSourceOffset = (index) => {
-  let offset = 0
-  for (let i = 0; i < index; i++) {
-    offset += revenueSources.value[i].percentage
-  }
-  return offset
 }
 
 // 格式化活动时间
@@ -258,10 +287,97 @@ const formatActivityTime = (timestamp) => {
   return activityTime.toLocaleDateString()
 }
 
+// 计算总百分比
+const getPreviousSegmentsTotal = (index) => {
+  return revenueSources.value
+    .slice(0, index)
+    .reduce((total, source) => total + source.percentage, 0);
+}
+
+const getConicGradient = () => {
+  let gradient = 'conic-gradient(';
+  let currentPercentage = 0;
+  
+  revenueSources.value.forEach((source, index) => {
+    if (index > 0) gradient += ', ';
+    gradient += `${source.color} ${currentPercentage}% ${currentPercentage + source.percentage}%`;
+    currentPercentage += source.percentage;
+  });
+  
+  gradient += ')';
+  return gradient;
+}
+
 // 页面加载时获取数据
 onMounted(() => {
   fetchDashboardData()
 })
+
+async function addTestBooking() {
+  try {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // 格式化日期为 "yyyy-MM-dd" 格式
+    const formatDate = (date) => {
+      const pad = (num) => String(num).padStart(2, '0');
+      const year = date.getFullYear();
+      const month = pad(date.getMonth() + 1);
+      const day = pad(date.getDate());
+      return `${year}-${month}-${day}`;
+    };
+
+    const bookingData = {
+      customerId: 1,  // 测试用客户ID
+      roomId: 1,      // 测试用房间ID
+      checkinDate: formatDate(now),
+      checkoutDate: formatDate(tomorrow),
+      totalPrice: 400.00,
+      status: "booked",
+      paymentStatus: "unpaid"
+      // 移除 createdAt，让后端自动处理
+    };
+
+    console.log('发送预订数据:', bookingData);
+    
+    const response = await fetch('/api/bookings', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bookingData)
+    });
+
+    const responseText = await response.text();
+    console.log('服务器响应:', response.status, responseText);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
+    }
+
+    let result;
+    try {
+      result = JSON.parse(responseText);
+    } catch (e) {
+      console.warn('响应不是JSON格式:', responseText);
+      result = responseText;
+    }
+
+    console.log('预订创建成功:', result);
+    
+    // 刷新数据
+    await fetchDashboardData();
+  } catch (error) {
+    console.error('创建预订失败:', error);
+    console.error('错误详情:', error.message);
+    if (error.response) {
+      console.error('响应状态:', error.response.status);
+      const text = await error.response.text();
+      console.error('响应内容:', text);
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -309,5 +425,74 @@ onMounted(() => {
   padding: 2rem;
   color: #64748b;
   font-style: italic;
+}
+
+/* 饼图样式 */
+.pie-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 1rem;
+  gap: 2rem;
+}
+
+.pie-chart {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #fff;
+  padding: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.pie-conic {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+.pie-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  color: #1e293b;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  margin-right: 0.5rem;
+}
+
+.legend-text {
+  color: #1e293b;
+}
+
+.chart-card {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 </style>
