@@ -17,13 +17,13 @@
         <div class="stat-icon room-icon">
           <!-- 房间图标 -->
           <svg class="stat-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 21H21M3 18H21M6 18V13M18 18V13M3 13H21M12 13V8M6 13V8M18 13V8M3 8H21M9 8V3H15V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="stat-info">
           <h3 class="stat-title">总房间数</h3>
           <p class="stat-value">{{ roomStats.total }}</p>
-          <p class="stat-desc">可用: {{ roomStats.available }} | 已预订: {{ roomStats.booked }}</p>
+          <p class="stat-desc">可用: {{ roomStats.available }}</p>
         </div>
       </div>
       
@@ -194,9 +194,28 @@ const fetchDashboardData = async () => {
     const roomResponse = await axios.get('/api/rooms/stats')
     roomStats.value = roomResponse.data
     
-    // 预订统计数据
-    const bookingResponse = await axios.get('/api/admin/bookings/stats/today')
-    bookingStats.value = bookingResponse.data
+    // 预订统计数据 - 直接获取所有预订
+    const bookingResponse = await axios.get('/api/bookings')
+    const allBookings = bookingResponse.data || []
+    
+    // 计算今日预订统计
+    const today = new Date().toISOString().slice(0, 10)
+    console.log('今日日期:', today)
+    console.log('所有预订:', allBookings)
+    
+    const checkedInBookings = allBookings.filter(b => b.status === 'checked-in')
+    console.log('已入住预订:', checkedInBookings)
+    
+    const todayCheckedIn = checkedInBookings.filter(b => b.checkinDate === today)
+    console.log('今日已入住:', todayCheckedIn)
+    
+    bookingStats.value = {
+      today: allBookings.filter(b => b.checkinDate === today).length,  // 今日预计入住
+      checkIn: todayCheckedIn.length,  // 今日已入住数量
+      checkOut: allBookings.filter(b => b.status === 'checked-out' && b.checkoutDate === today).length  // 今日实际已退房
+    }
+    
+    console.log('统计结果:', bookingStats.value)
     
     // 客户统计数据
     const customerResponse = await axios.get('/api/admin/customers/stats')

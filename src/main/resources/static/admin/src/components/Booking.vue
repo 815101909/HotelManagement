@@ -804,7 +804,7 @@
   const totalBookingCount = computed(() => bookings.value.length)
   const todayCheckinCount = computed(() => {
     const today = new Date().toISOString().slice(0, 10)
-    return bookings.value.filter(b => b.checkinDate === today).length
+    return bookings.value.filter(b => b.status === 'checked-in' && b.checkinDate === today).length
   })
   const todayCheckoutCount = computed(() => {
     const today = new Date().toISOString().slice(0, 10)
