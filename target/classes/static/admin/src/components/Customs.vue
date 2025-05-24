@@ -631,12 +631,28 @@
   }
   
   // 切换VIP状态
-  const toggleVipStatus = (customer) => {
-    console.log('切换VIP状态:', customer)
-    // 这里可以实现切换VIP状态的逻辑
-    const index = customers.value.findIndex(c => c.id === customer.id)
-    if (index !== -1) {
-      customers.value[index].type = customer.type === 'vip' ? 'regular' : 'vip'
+  const toggleVipStatus = async (customer) => {
+    try {
+      // 准备更新的客户数据
+      const updatedCustomer = {
+        ...customer,
+        type: customer.type === 'vip' ? 'regular' : 'vip'
+      }
+      
+      // 调用更新客户接口
+      await axios.put('/api/customers', updatedCustomer)
+      
+      // 更新本地状态
+      const index = customers.value.findIndex(c => c.id === customer.id)
+      if (index !== -1) {
+        customers.value[index].type = updatedCustomer.type
+      }
+      
+      // 刷新客户统计数据
+      await fetchCustomerStats()
+    } catch (e) {
+      console.error('更新VIP状态失败:', e)
+      error.value = e.response?.data?.message || '更新VIP状态失败'
     }
   }
   
