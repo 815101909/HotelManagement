@@ -63,7 +63,16 @@ public class ExpenseServiceImpl implements ExpenseService {
     
     @Override
     public List<Expense> getExpensesByDateRange(Date startDate, Date endDate) {
-        return expenseMapper.findByDateRange(startDate, endDate);
+        System.out.println("[ExpenseServiceImpl] getExpensesByDateRange 收到参数: startDate=" + startDate + ", endDate=" + endDate);
+        if (startDate != null && endDate != null) {
+            // JDK8写法，补全endDate为次日0点
+            java.time.LocalDate end = endDate.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+            java.time.LocalDateTime endDateTime = end.plusDays(1).atStartOfDay();
+            Date realEndDate = Date.from(endDateTime.atZone(java.time.ZoneId.systemDefault()).toInstant());
+            System.out.println("[ExpenseServiceImpl] getExpensesByDateRange 补全后: startDate=" + startDate + ", endDate=" + realEndDate);
+            return expenseMapper.findByDateRange(startDate, realEndDate);
+        }
+        return new java.util.ArrayList<>();
     }
     
     @Override

@@ -95,8 +95,19 @@ public class ExpenseController {
      * @return 支出记录列表
      */
     @GetMapping("/expenses")
-    public ResponseEntity<List<Expense>> getAllExpenses() {
-        return ResponseEntity.ok(expenseService.getAllExpenses());
+    public ResponseEntity<List<Expense>> getExpenses(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+        if (startDate == null && endDate == null) {
+            // 全部
+            return ResponseEntity.ok(expenseService.getAllExpenses());
+        } else if (startDate != null && endDate != null) {
+            // 区间
+            return ResponseEntity.ok(expenseService.getExpensesByDateRange(startDate, endDate));
+        } else {
+            // 只传一个参数，返回空
+            return ResponseEntity.ok(new java.util.ArrayList<>());
+        }
     }
     
     /**

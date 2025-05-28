@@ -44,8 +44,9 @@ public class FinanceController {
     
     /**
      * 获取财务明细数据，包括收入（已付款订单）和支出
+     *
      * @param startDate 开始日期（可选）
-     * @param endDate 结束日期（可选）
+     * @param endDate   结束日期（可选）
      * @return 财务明细列表
      */
     @GetMapping("/details")
@@ -55,7 +56,36 @@ public class FinanceController {
         
         // 日志
         logger.info("\n\n=================== 获取财务详情 ===================");
-        logger.info("开始日期: {}, 结束日期: {}", startDate, endDate);
+        logger.info("收到前端参数: startDate={}, endDate={}", startDate, endDate);
+
+        // 修正startDate为当天00:00:00
+        if (startDate != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(startDate);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            startDate = cal.getTime();
+        }
+        // 修正endDate为当天23:59:59，确保包含当天所有数据
+        if (endDate != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(endDate);
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            cal.set(Calendar.SECOND, 59);
+            cal.set(Calendar.MILLISECOND, 999);
+            endDate = cal.getTime();
+        }
+
+        // 如果startDate和endDate相等，自动将endDate加一天，实现单天筛选
+        if (startDate != null && endDate != null && startDate.equals(endDate)) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(endDate);
+            cal.add(Calendar.DATE, 1);
+            endDate = cal.getTime();
+        }
         
         // 结果容器
         Map<String, Object> result = new HashMap<>();
@@ -253,6 +283,7 @@ public class FinanceController {
     
     /**
      * 获取月度趋势数据
+     *
      * @return 月度收入趋势
      */
     @GetMapping("/trend/monthly")
@@ -296,7 +327,7 @@ public class FinanceController {
         
         for (int month = 1; month <= 12; month++) {
             Map<String, Object> item = new HashMap<>();
-            item.put("month", monthNames[month-1]);
+            item.put("month", monthNames[month - 1]);
             item.put("income", monthlyIncome.get(month));
             result.add(item);
         }
@@ -306,6 +337,7 @@ public class FinanceController {
     
     /**
      * 获取收入来源分布数据
+     *
      * @return 收入来源分布
      */
     @GetMapping("/income-sources")
@@ -361,6 +393,7 @@ public class FinanceController {
     
     /**
      * 记录房间收入
+     *
      * @param incomeData 收入数据
      * @return 操作结果
      */
@@ -432,6 +465,7 @@ public class FinanceController {
     /**
      * 同步预订数据到财务系统
      * 自动读取预订系统中的已付款订单，并将其计算为收入
+     *
      * @return 操作结果
      */
     @PostMapping("/sync-bookings")
@@ -518,8 +552,9 @@ public class FinanceController {
 
     /**
      * 获取收入数据
+     *
      * @param startDate 开始日期（可选）
-     * @param endDate 结束日期（可选）
+     * @param endDate   结束日期（可选）
      * @return 收入数据列表
      */
     @GetMapping("/income")
@@ -588,6 +623,7 @@ public class FinanceController {
 
     /**
      * 直接添加收入记录到收入表
+     *
      * @param incomeData 收入数据
      * @return 操作结果
      */

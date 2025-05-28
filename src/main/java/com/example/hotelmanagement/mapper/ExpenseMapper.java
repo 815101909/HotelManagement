@@ -63,8 +63,8 @@ public interface ExpenseMapper {
      * @param endDate 结束日期
      * @return 支出记录列表
      */
-    @Select("SELECT * FROM expense WHERE expense_date BETWEEN #{startDate} AND #{endDate} ORDER BY expense_date DESC")
-    List<Expense> findByDateRange(Date startDate, Date endDate);
+    @Select("SELECT * FROM expense WHERE expense_date >= #{startDate} AND expense_date < #{endDate} ORDER BY expense_date DESC")
+    List<Expense> findByDateRange(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
     
     /**
      * 根据类别查询支出记录

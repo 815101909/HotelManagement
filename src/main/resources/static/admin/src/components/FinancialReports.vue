@@ -24,17 +24,11 @@
         <div class="date-range-selector">
           <button class="date-btn" :class="{ active: dateRange === 'all' }" @click="setDateRange('all')">全部</button>
           <button class="date-btn" :class="{ active: dateRange === 'today' }" @click="setDateRange('today')">今日</button>
-          <button class="date-btn" :class="{ active: dateRange === 'specific' }" @click="setDateRange('specific')">指定日期</button>
           <button class="date-btn" :class="{ active: dateRange === 'week' }" @click="setDateRange('week')">本周</button>
           <button class="date-btn" :class="{ active: dateRange === 'month' }" @click="setDateRange('month')">本月</button>
           <button class="date-btn" :class="{ active: dateRange === 'quarter' }" @click="setDateRange('quarter')">本季度</button>
-          <button class="date-btn" :class="{ active: dateRange === 'year' }" @click="setDateRange('year')">本年度</button>
-          <button class="date-btn" :class="{ active: dateRange === 'custom' }" @click="setDateRange('custom')">自定义</button>
-          <button class="refresh-btn" @click="refreshFinancialData" title="刷新数据">
-            <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 4V9H4.58152M19.9381 11C19.446 7.05369 16.0796 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9M4.58152 9H9M20 20V15H19.4185M19.4185 15C18.2317 17.9318 15.3574 20 12 20C7.92038 20 4.55399 16.9463 4.06189 13M19.4185 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+          <button class="date-btn" :class="{ active: dateRange === 'year' }" @click="setDateRange('year')">本年</button>
+          <button class="date-btn" :class="{ active: dateRange === 'custom' }" @click="setDateRange('custom')">自选日期</button>
         </div>
         
         <!-- 指定日期选择器 -->
@@ -278,7 +272,7 @@
                 <td class="amount income">{{ item.income > 0 ? '¥' + formatNumber(item.income) : '-' }}</td>
                 <td class="amount expense">{{ item.expense > 0 ? '¥' + formatNumber(item.expense) : '-' }}</td>
                 <td class="amount" :class="item.income - item.expense >= 0 ? 'positive' : 'negative'">
-                  {{ (item.income - item.expense) >= 0 ? '¥' + formatNumber(item.income - item.expense) : '-¥' + formatNumber(Math.abs(item.income - item.expense)) }}
+                  {{ (item.income - item.expense) >= 0 ? '+¥' + formatNumber(item.income - item.expense) : '-¥' + formatNumber(Math.abs(item.income - item.expense)) }}
                 </td>
                 <td>
                   <div class="action-buttons">
@@ -307,7 +301,7 @@
                 <td class="amount income total-income">¥{{ formatNumber(totalIncome) }}</td>
                 <td class="amount expense total-expense">¥{{ formatNumber(totalExpense) }}</td>
                 <td class="amount total-net" :class="totalIncome - totalExpense >= 0 ? 'positive' : 'negative'">
-                  {{ (totalIncome - totalExpense) >= 0 ? '¥' + formatNumber(totalIncome - totalExpense) : '-¥' + formatNumber(Math.abs(totalIncome - totalExpense)) }}
+                  {{ (totalIncome - totalExpense) >= 0 ? '+¥' + formatNumber(totalIncome - totalExpense) : '-¥' + formatNumber(Math.abs(totalIncome - totalExpense)) }}
                 </td>
                 <td></td>
               </tr>
@@ -528,7 +522,7 @@
       const params = {}
         
       // 添加日期过滤参数 (除了全部范围外都需要)
-        if (dateRange.value !== 'all') {
+      if (dateRange.value !== 'all') {
         if (dateRange.value === 'today') {
           // 确保"今日"筛选使用系统当前日期
           const currentDate = formatDefaultDate(new Date())
@@ -1342,81 +1336,44 @@
   
   // 设置日期范围
   const setDateRange = (range) => {
-    if (dateRange.value === range) {
-      // 如果点击的是当前已选择的范围，不做任何操作
-      return;
+    dateRange.value = range;
+    const systemDate = new Date();
+    if (range === 'today') {
+      const todayStr = formatDefaultDate(systemDate);
+      startDate.value = todayStr;
+      endDate.value = todayStr;
+      applyDateFilter();
+    } else if (range === 'week') {
+      const day = systemDate.getDay() || 7;
+      const weekStart = new Date(systemDate);
+      weekStart.setDate(systemDate.getDate() - day + 1);
+      startDate.value = formatDefaultDate(weekStart);
+      endDate.value = formatDefaultDate(systemDate);
+      applyDateFilter();
+    } else if (range === 'month') {
+      const monthStart = new Date(systemDate.getFullYear(), systemDate.getMonth(), 1);
+      startDate.value = formatDefaultDate(monthStart);
+      endDate.value = formatDefaultDate(systemDate);
+      applyDateFilter();
+    } else if (range === 'quarter') {
+      const month = systemDate.getMonth();
+      const quarterStartMonth = Math.floor(month / 3) * 3;
+      const quarterStart = new Date(systemDate.getFullYear(), quarterStartMonth, 1);
+      startDate.value = formatDefaultDate(quarterStart);
+      endDate.value = formatDefaultDate(systemDate);
+      applyDateFilter();
+    } else if (range === 'year') {
+      const yearStart = new Date(systemDate.getFullYear(), 0, 1);
+      startDate.value = formatDefaultDate(yearStart);
+      endDate.value = formatDefaultDate(systemDate);
+      applyDateFilter();
+    } else if (range === 'all') {
+      startDate.value = '';
+      endDate.value = '';
+      applyDateFilter();
     }
-
-    dateRange.value = range
-    
-    // 使用系统当前日期
-    const systemDate = new Date()
-    
-    switch (range) {
-      case 'today':
-        // 使用系统当前日期
-        startDate.value = formatDefaultDate(systemDate)
-        endDate.value = formatDefaultDate(systemDate)
-        break
-      case 'specific':
-        // 默认设置为今天，用户可以自行修改
-        if (!specificDate.value) {
-          specificDate.value = formatDefaultDate(systemDate)
-        }
-        break
-      case 'week':
-        const weekStart = new Date(systemDate)
-        weekStart.setDate(systemDate.getDate() - systemDate.getDay()) // 本周周日
-        startDate.value = formatDefaultDate(weekStart)
-        endDate.value = formatDefaultDate(systemDate)
-        break
-      case 'month':
-        const monthStart = new Date(systemDate.getFullYear(), systemDate.getMonth(), 1)
-        startDate.value = formatDefaultDate(monthStart)
-        endDate.value = formatDefaultDate(systemDate)
-        break
-      case 'quarter':
-        const quarter = Math.floor(systemDate.getMonth() / 3)
-        const quarterStart = new Date(systemDate.getFullYear(), quarter * 3, 1)
-        startDate.value = formatDefaultDate(quarterStart)
-        endDate.value = formatDefaultDate(systemDate)
-        break
-      case 'year':
-        const yearStart = new Date(systemDate.getFullYear(), 0, 1)
-        startDate.value = formatDefaultDate(yearStart)
-        endDate.value = formatDefaultDate(systemDate)
-        break
-      case 'custom':
-        // 使用现有的自定义日期值，或默认为系统日期
-        if (!startDate.value) startDate.value = formatDefaultDate(systemDate)
-        if (!endDate.value) endDate.value = formatDefaultDate(systemDate)
-        break
-      case 'all':
-        // 全部数据，清除日期过滤
-        startDate.value = ''
-        endDate.value = ''
-        break
-    }
-    
-    // 保存到localStorage
-    try {
-      localStorage.setItem('financialDateRange', range);
-      localStorage.setItem('financialStartDate', startDate.value);
-      localStorage.setItem('financialEndDate', endDate.value);
-      if (range === 'specific') {
-        localStorage.setItem('financialSpecificDate', specificDate.value);
-      }
-    } catch (e) {
-      console.error('保存日期范围到localStorage失败:', e);
-    }
-    
-    console.log(`设置日期范围: ${range}, 从 ${startDate.value} 到 ${endDate.value}`)
-    
-    // 如果不是自定义范围或特定日期范围，立即应用过滤器
-    if (range !== 'custom' && range !== 'specific') {
-      applyDateFilter()
-    }
-  }
+    // 自选日期和其它情况保持原逻辑
+  };
   
   // 页面加载时获取数据
   onMounted(() => {
@@ -1758,7 +1715,6 @@
             const dateB = b.date;
             return dateB.localeCompare(dateA); // 降序排列，最新的在前面
           })
-          
           // 更新图表
           setTimeout(() => {
             updatePieChart()
