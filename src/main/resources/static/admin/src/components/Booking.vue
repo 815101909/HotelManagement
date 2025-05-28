@@ -807,8 +807,18 @@
     return bookings.value.filter(b => b.status === 'checked-in' && b.checkinDate === today).length
   })
   const todayCheckoutCount = computed(() => {
-    const today = new Date().toISOString().slice(0, 10)
-    return bookings.value.filter(b => b.checkoutDate === today).length
+    // const today = new Date().toISOString().slice(0, 10)
+    // return bookings.value.filter(b => b.checkoutDate === today).length
+    const now = new Date()
+    // 今天0点
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0)
+    // 明天0点
+    const end = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0)
+    return bookings.value.filter(b => {
+      if (!b.checkoutDate) return false
+      const d = new Date(b.checkoutDate)
+      return d >= start && d < end
+    }).length
   })
   const pendingCount = computed(() => bookings.value.filter(b => b.status === 'pending').length)
   
