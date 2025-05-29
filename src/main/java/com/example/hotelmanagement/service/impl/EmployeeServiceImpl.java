@@ -22,4 +22,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findAll() {
         return employeeMapper.findAll();
     }
+
+    @Override
+    public int addEmployee(Employee employee) {
+        return employeeMapper.addEmployee(employee);
+    }
+
+    @Override
+    public int updateEmployee(Employee employee) {
+        return employeeMapper.updateEmployee(employee);
+    }
+
+    @Override
+    public int deleteEmployee(Integer id) {
+        return employeeMapper.deleteEmployee(id);
+    }
 } 

@@ -2,4 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.hotelmanagement.mapper.EmployeeMapper">
     <!-- 可扩展SQL -->
-</mapper> 
+    <update id="updateEmployee" parameterType="com.example.hotelmanagement.entity.Employee">
+        UPDATE employee
+        SET
+            name = #{name},
+            gender = #{gender},
+            phone = #{phone},
+            position = #{position},
+            hire_date = #{hireDate},
+            salary = #{salary},
+            status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteEmployee" parameterType="int">
+        DELETE FROM employee WHERE id = #{id}
+    </delete>
+</mapper>

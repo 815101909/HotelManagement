@@ -133,14 +133,14 @@
           
           <!-- 用户管理 -->
           <div v-if="activeTab === 'users'" class="settings-section">
-            <h2 class="section-title">用户管理</h2>
+            <h2 class="section-title">员工管理</h2>
             
             <div class="section-actions">
-              <button class="btn btn-primary" @click="showAddUserModal = true">
+              <button class="btn btn-primary" @click="showAddEmployeeModal = true">
                 <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                添加用户
+                添加员工
               </button>
             </div>
             
@@ -148,54 +148,38 @@
               <table class="users-table">
                 <thead>
                   <tr>
-                    <th>用户名</th>
+                    <th>工号</th>
                     <th>姓名</th>
-                    <th>角色</th>
-                    <th>邮箱</th>
+                    <th>性别</th>
+                    <th>电话</th>
+                    <th>职位</th>
+                    <th>入职日期</th>
+                    <th>薪资</th>
                     <th>状态</th>
-                    <th>最后登录</th>
+                    <th style="min-width: 80px;">创建时间</th>
                     <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="user in users" :key="user.id">
-                    <td>{{ user.username }}</td>
+                    <td>{{ user.id }}</td>
                     <td>{{ user.name }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>{{ user.position }}</td>
+                    <td>{{ user.hireDate ? (user.hireDate.length ? user.hireDate.substring(0, 10) : user.hireDate) : '' }}</td>
+                    <td>{{ user.salary }}</td>
+                    <td>{{ user.status == 1 ? '在职' : '离职' }}</td>
+                    <td>{{ user.createTime ? user.createTime.replace('T', ' ').substring(0, 19) : '' }}</td>
                     <td>
-                      <span class="role-badge" :class="user.role">{{ getRoleName(user.role) }}</span>
-                    </td>
-                    <td>{{ user.email }}</td>
-                    <td>
-                      <span class="status-badge" :class="user.status">{{ getStatusName(user.status) }}</span>
-                    </td>
-                    <td>{{ user.lastLogin }}</td>
-                    <td>
-                      <div class="table-actions">
-                        <button class="action-btn edit-btn" @click="editUser(user)" title="编辑">
-                          <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13M18.5 2.5C18.8978 2.10217 19.4374 1.87868 20 1.87868C20.5626 1.87868 21.1022 2.10217 21.5 2.5C21.8978 2.89782 22.1213 3.43739 22.1213 4C22.1213 4.56261 21.8978 5.10217 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
-                        <button 
-                          class="action-btn" 
-                          :class="user.status === 'active' ? 'disable-btn' : 'enable-btn'" 
-                          @click="toggleUserStatus(user)"
-                          :title="user.status === 'active' ? '禁用' : '启用'"
-                        >
-                          <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path :d="user.status === 'active' ? 'M18.364 18.364C16.7353 19.9926 14.4853 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 14.4853 19.9926 16.7353 18.364 18.364M12 8V16M8 12H16' : 'M18.364 18.364C16.7353 19.9926 14.4853 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 14.4853 19.9926 16.7353 18.364 18.364M9 9L15 15M15 9L9 15'" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
-                        <button class="action-btn delete-btn" @click="deleteUser(user)" title="删除">
-                          <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 6H5H21M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M10 11V17M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                          </svg>
-                        </button>
-                      </div>
+                      <button class="btn btn-secondary" @click="openEditEmployeeModal(user)">编辑</button>
+                      <button class="btn btn-danger" @click="deleteEmployee(user)">删除</button>
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <div v-if="isUserLoading">加载中...</div>
+              <div v-if="userError" style="color:red">{{ userError }}</div>
             </div>
           </div>
           
@@ -465,7 +449,7 @@
                           </button>
                           <button class="action-btn delete-btn" @click="deleteBackup(backup)" title="删除">
                             <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M3 6H5H21M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                              <path d="M3 6H5H21M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M10 11V17M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                           </button>
                         </div>
@@ -500,48 +484,102 @@
         </div>
       </div>
       
-      <!-- 添加用户模态框 -->
-      <div class="modal" v-if="showAddUserModal">
+      <!-- 添加员工模态框 -->
+      <div class="modal" v-if="showAddEmployeeModal">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="modal-title">添加用户</h2>
-            <button class="modal-close" @click="showAddUserModal = false">
-              <svg class="modal-close-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
+            <h2 class="modal-title">添加员工</h2>
+            <button class="modal-close" @click="showAddEmployeeModal = false">×</button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="new-username" class="form-label">用户名</label>
-              <input type="text" id="new-username" class="form-input" v-model="newUser.username">
+              <label class="form-label">姓名</label>
+              <input class="form-input" v-model="newEmployee.name" />
             </div>
             <div class="form-group">
-              <label for="new-name" class="form-label">姓名</label>
-              <input type="text" id="new-name" class="form-input" v-model="newUser.name">
-            </div>
-            <div class="form-group">
-              <label for="new-email" class="form-label">电子邮箱</label>
-              <input type="email" id="new-email" class="form-input" v-model="newUser.email">
-            </div>
-            <div class="form-group">
-              <label for="new-role" class="form-label">角色</label>
-              <select id="new-role" class="form-select" v-model="newUser.role">
-                <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
+              <label class="form-label">性别</label>
+              <select class="form-input" v-model="newEmployee.gender">
+                <option value="男">男</option>
+                <option value="女">女</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="new-password" class="form-label">密码</label>
-              <input type="password" id="new-password" class="form-input" v-model="newUser.password">
+              <label class="form-label">电话</label>
+              <input class="form-input" v-model="newEmployee.phone" />
             </div>
             <div class="form-group">
-              <label for="new-confirm-password" class="form-label">确认密码</label>
-              <input type="password" id="new-confirm-password" class="form-input" v-model="newUser.confirmPassword">
+              <label class="form-label">职位</label>
+              <input class="form-input" v-model="newEmployee.position" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">入职日期</label>
+              <input class="form-input" type="date" v-model="newEmployee.hireDate" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">薪资</label>
+              <input class="form-input" type="number" v-model="newEmployee.salary" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">状态</label>
+              <select class="form-input" v-model="newEmployee.status">
+                <option value="1">在职</option>
+                <option value="0">离职</option>
+              </select>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-secondary" @click="showAddUserModal = false">取消</button>
-            <button class="btn btn-primary" @click="addUser">保存</button>
+            <button class="btn btn-secondary" @click="showAddEmployeeModal = false">取消</button>
+            <button class="btn btn-primary" @click="addEmployee">保存</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 编辑员工模态框 -->
+      <div class="modal" v-if="showEditEmployeeModal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">编辑员工</h2>
+            <button class="modal-close" @click="showEditEmployeeModal = false">×</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="form-label">姓名</label>
+              <input class="form-input" v-model="editEmployee.name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">性别</label>
+              <select class="form-input" v-model="editEmployee.gender">
+                <option value="男">男</option>
+                <option value="女">女</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">电话</label>
+              <input class="form-input" v-model="editEmployee.phone" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">职位</label>
+              <input class="form-input" v-model="editEmployee.position" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">入职日期</label>
+              <input class="form-input" type="date" v-model="editEmployee.hireDate" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">薪资</label>
+              <input class="form-input" type="number" v-model="editEmployee.salary" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">状态</label>
+              <select class="form-input" v-model="editEmployee.status">
+                <option value="1">在职</option>
+                <option value="0">离职</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" @click="showEditEmployeeModal = false">取消</button>
+            <button class="btn btn-primary" @click="saveEditEmployee">保存</button>
           </div>
         </div>
       </div>
@@ -549,7 +587,8 @@
   </template>
   
   <script setup>
-  import { ref, reactive } from 'vue'
+  import { ref, reactive, onMounted } from 'vue'
+  import axios from 'axios'
   
   // 当前活动标签
   const activeTab = ref('general')
@@ -563,7 +602,7 @@
     },
     { 
       id: 'users', 
-      name: '用户管理', 
+      name: '员工管理', 
       icon: 'M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13M16 3.13C16.8604 3.3503 17.623 3.8507 18.1676 4.55231C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z' 
     },
     { 
@@ -597,55 +636,39 @@
   })
   
   // 用户管理
-  const showAddUserModal = ref(false)
-  const newUser = reactive({
-    username: '',
+  const showAddEmployeeModal = ref(false)
+  const newEmployee = ref({
     name: '',
-    email: '',
-    role: 'staff',
-    password: '',
-    confirmPassword: ''
+    gender: '男',
+    phone: '',
+    position: '',
+    hireDate: '',
+    salary: '',
+    status: '1'
   })
   
-  // 模拟用户数据
-  const users = ref([
-    { 
-      id: 1, 
-      username: 'admin', 
-      name: '系统管理员', 
-      role: 'admin', 
-      email: 'admin@example.com', 
-      status: 'active',
-      lastLogin: '2023-05-15 10:30:45'
-    },
-    { 
-      id: 2, 
-      username: 'manager', 
-      name: '酒店经理', 
-      role: 'manager', 
-      email: 'manager@example.com', 
-      status: 'active',
-      lastLogin: '2023-05-14 16:20:10'
-    },
-    { 
-      id: 3, 
-      username: 'reception', 
-      name: '前台接待', 
-      role: 'staff', 
-      email: 'reception@example.com', 
-      status: 'active',
-      lastLogin: '2023-05-15 08:15:30'
-    },
-    { 
-      id: 4, 
-      username: 'housekeeping', 
-      name: '客房服务', 
-      role: 'staff', 
-      email: 'housekeeping@example.com', 
-      status: 'inactive',
-      lastLogin: '2023-04-30 14:45:22'
+  // 用户管理
+  const users = ref([])
+  const isUserLoading = ref(false)
+  const userError = ref('')
+  
+  const fetchUsers = async () => {
+    isUserLoading.value = true
+    userError.value = ''
+    try {
+      const res = await axios.get('/employee/all')
+      console.log('员工数据', res.data)
+      users.value = res.data
+    } catch (e) {
+      userError.value = '获取员工数据失败'
+    } finally {
+      isUserLoading.value = false
     }
-  ])
+  }
+  
+  onMounted(() => {
+    fetchUsers()
+  })
   
   // 获取角色名称
   const getRoleName = (role) => {
@@ -655,15 +678,6 @@
       'staff': '普通员工'
     }
     return roleMap[role] || role
-  }
-  
-  // 获取状态名称
-  const getStatusName = (status) => {
-    const statusMap = {
-      'active': '启用',
-      'inactive': '禁用'
-    }
-    return statusMap[status] || status
   }
   
   // 编辑用户
@@ -689,33 +703,26 @@
     users.value = users.value.filter(u => u.id !== user.id)
   }
   
-  // 添加用户
-  const addUser = () => {
-    console.log('添加用户:', newUser)
-    // 这里可以实现添加用户的逻辑
-    
-    // 模拟添加成功
-    const newId = Math.max(...users.value.map(u => u.id)) + 1
-    users.value.push({
-      id: newId,
-      username: newUser.username,
-      name: newUser.name,
-      email: newUser.email,
-      role: newUser.role,
-      status: 'active',
-      lastLogin: '从未登录'
-    })
-    
-    // 重置表单并关闭模态框
-    Object.assign(newUser, {
-      username: '',
-      name: '',
-      email: '',
-      role: 'staff',
-      password: '',
-      confirmPassword: ''
-    })
-    showAddUserModal.value = false
+  // 添加员工
+  const addEmployee = async () => {
+    try {
+      await axios.post('/employee/add', newEmployee.value)
+      showAddEmployeeModal.value = false
+      // 清空表单
+      newEmployee.value = {
+        name: '',
+        gender: '男',
+        phone: '',
+        position: '',
+        hireDate: '',
+        salary: '',
+        status: '1'
+      }
+      // 刷新员工列表
+      fetchUsers()
+    } catch (e) {
+      alert('添加失败')
+    }
   }
   
   // 权限设置
@@ -935,6 +942,35 @@
   const saveAllSettings = () => {
     console.log('保存所有设置')
     // 这里可以实现保存所有设置的逻辑
+  }
+  
+  // 编辑员工模态框
+  const showEditEmployeeModal = ref(false)
+  const editEmployee = ref({})
+  
+  function openEditEmployeeModal(user) {
+    editEmployee.value = { ...user }
+    showEditEmployeeModal.value = true
+  }
+  
+  async function saveEditEmployee() {
+    try {
+      await axios.put('/employee/update', editEmployee.value)
+      showEditEmployeeModal.value = false
+      fetchUsers()
+    } catch (e) {
+      alert('编辑失败')
+    }
+  }
+  
+  async function deleteEmployee(user) {
+    if (!confirm('确定要删除该员工吗？')) return
+    try {
+      await axios.delete(`/employee/delete/${user.id}`)
+      fetchUsers()
+    } catch (e) {
+      alert('删除失败')
+    }
   }
   </script>
   
@@ -1164,6 +1200,7 @@
   .users-table th {
     background-color: #f8fafc;
     padding: 0.75rem 1rem;
+    min-width: 30px;
     text-align: left;
     font-size: 0.875rem;
     font-weight: 600;
