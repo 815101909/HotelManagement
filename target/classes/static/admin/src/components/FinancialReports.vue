@@ -144,41 +144,13 @@
         <!-- 收入趋势图 -->
         <div class="chart-card">
           <div class="chart-header">
-            <h3 class="chart-title">收入趋势</h3>
-            <div class="chart-actions">
-              <select class="chart-select">
-                <option value="daily">日视图</option>
-                <option value="weekly">周视图</option>
-                <option value="monthly" selected>月视图</option>
-              </select>
-            </div>
+            <h3 class="chart-title">收入月趋势</h3>
           </div>
           <div class="chart-body">
-            <div class="line-chart">
-              <div class="chart-y-axis">
-                <div class="y-axis-label">¥150k</div>
-                <div class="y-axis-label">¥100k</div>
-                <div class="y-axis-label">¥50k</div>
-                <div class="y-axis-label">¥0</div>
-              </div>
-              <div class="chart-content">
-                <div class="chart-grid">
-                  <div class="grid-line"></div>
-                  <div class="grid-line"></div>
-                  <div class="grid-line"></div>
-                  <div class="grid-line"></div>
-                </div>
-                <div class="line-chart-bars">
-                  <div v-for="(item, index) in monthlyIncomeData" :key="index" class="chart-bar-group">
-                    <div class="chart-bar" :style="{ height: maxIncome > 0 ? (item.income / maxIncome * 100) + '%' : '0%' }"></div>
-                    <div class="x-axis-label">{{ item.month }}</div>
-                  </div>
-                  </div>
-                  </div>
-                  </div>
+            <div ref="incomeChart" style="width: 100%; height: 300px;"></div>
           </div>
         </div>
-        
+
         <!-- 收入来源分布 -->
         <div class="chart-card">
           <div class="chart-header">
@@ -455,8 +427,9 @@
   </template>
   
   <script setup>
-  import { ref, computed, onMounted } from 'vue'
+  import { ref, computed, onMounted, nextTick, watch, onBeforeUnmount } from 'vue'
   import axios from 'axios'
+  import * as echarts from 'echarts'
   
   // 日期筛选
   const dateRange = ref('all')  // 默认为全部
@@ -557,35 +530,35 @@
       expenseRecords.value = []
       
       // 第0步：先尝试获取已付款的预订数据
-      try {
-        const paidBookingsUrl = '/api/admin/bookings/paid';
-        const paidBookingsRes = await axios.get(paidBookingsUrl, { params });
-        console.log('已付款预订数据:', paidBookingsRes.data);
+      // try {
+      //   const paidBookingsUrl = '/api/admin/bookings/paid';
+      //   const paidBookingsRes = await axios.get(paidBookingsUrl, { params });
+      //   console.log('已付款预订数据:', paidBookingsRes.data);
         
-        if (paidBookingsRes.data && Array.isArray(paidBookingsRes.data) && paidBookingsRes.data.length > 0) {
-          // 处理已付款的预订数据
-          processBookingsData(paidBookingsRes.data);
-          console.log('已处理付款预订数据, 共处理了:', paidBookingsRes.data.length, '条');
+      //   if (paidBookingsRes.data && Array.isArray(paidBookingsRes.data) && paidBookingsRes.data.length > 0) {
+      //     // 处理已付款的预订数据
+      //     processBookingsData(paidBookingsRes.data);
+      //     console.log('已处理付款预订数据, 共处理了:', paidBookingsRes.data.length, '条');
           
-          // 获取支出数据以完成财务报表
-          await fetchExpenseData(params);
+      //     // 获取支出数据以完成财务报表
+      //     await fetchExpenseData(params);
           
-          // 更新净利润
-          totalProfit.value = totalIncome.value - totalExpense.value;
+      //     // 更新净利润
+      //     totalProfit.value = totalIncome.value - totalExpense.value;
           
-          // 财务数据按日期排序（降序，最新的在前面）
-          sortFinancialData();
+      //     // 财务数据按日期排序（降序，最新的在前面）
+      //     sortFinancialData();
           
-          // 更新图表
-          updateCharts();
+      //     // 更新图表
+      //     updateCharts();
           
-          return; // 结束处理
-        } else {
-          console.warn('未获取到已付款的预订数据，将尝试获取收入数据');
-        }
-      } catch (err) {
-        console.warn('获取付款预订数据失败，将尝试获取收入数据', err);
-      }
+      //     return; // 结束处理
+      //   } else {
+      //     console.warn('未获取到已付款的预订数据，将尝试获取收入数据');
+      //   }
+      // } catch (err) {
+      //   console.warn('获取付款预订数据失败，将尝试获取收入数据', err);
+      // }
       
       // 第1步：获取收入数据
       try {
@@ -785,7 +758,7 @@
   const updateCharts = () => {
     setTimeout(() => {
       updatePieChart()
-      updateIncomeChart()
+      renderIncomeChart()
       updateExpenseChart()
     }, 100)
   }
@@ -1722,7 +1695,7 @@
           // 更新图表
           setTimeout(() => {
             updatePieChart()
-            updateIncomeChart()
+            renderIncomeChart()
           }, 100)
           
           alert(`同步成功: 已将${response.data.syncedItems.length}条预订收入添加到财务明细中`)
@@ -1866,44 +1839,59 @@
   // 添加月度收入数据
   const monthlyIncomeData = ref([])
   
-  // 更新收入趋势图
-  const updateIncomeChart = () => {
-    // 找到最大收入值，用于计算高度比例
-    const maxIncome = Math.max(...monthlyIncomeData.value.map(item => item.income || 0));
-    
-    // 更新Y轴标签
-    const yLabels = document.querySelectorAll('.chart-y-axis .y-axis-label');
-    if (yLabels && yLabels.length >= 4) {
-      if (maxIncome > 0) {
-        const maxLabel = Math.ceil(maxIncome / 50000) * 50000;
-        yLabels[0].textContent = '¥' + (maxLabel).toLocaleString();
-        yLabels[1].textContent = '¥' + (maxLabel * 2/3).toLocaleString();
-        yLabels[2].textContent = '¥' + (maxLabel * 1/3).toLocaleString();
-        yLabels[3].textContent = '¥0';
-      } else {
-        // 如果没有数据，显示空Y轴
-        yLabels[0].textContent = '¥0';
-        yLabels[1].textContent = '';
-        yLabels[2].textContent = '';
-        yLabels[3].textContent = '';
-      }
+  const incomeChart = ref(null)
+  let incomeChartInstance = null // 改为普通变量
+  const incomeChartView = ref('monthly')
+  
+  const renderIncomeChart = () => {
+    if (!incomeChart.value) return
+    // 销毁旧实例，防止重复初始化导致事件失效
+    if (incomeChartInstance) {
+      incomeChartInstance.dispose()
     }
-    
-    // 更新每个月份的柱状图高度
-    const chartBars = document.querySelectorAll('.chart-bar-group .chart-bar');
-    if (chartBars) {
-      monthlyIncomeData.value.forEach((item, index) => {
-        const percentage = maxIncome > 0 ? Math.round((item.income / maxIncome) * 100) : 0;
-        if (index < chartBars.length) {
-          chartBars[index].style.height = `${percentage}%`;
+    incomeChartInstance = echarts.init(incomeChart.value)
+    const xData = monthlyIncomeData.value.map(item => item.month)
+    const yData = monthlyIncomeData.value.map(item => item.income)
+    const option = {
+      tooltip: {
+        trigger: 'axis',
+        formatter: params => {
+          const d = params[0]
+          return `${d.axisValue}<br/>收入：¥${d.data.toLocaleString()}`
         }
-      });
+      },
+      xAxis: { type: 'category', data: xData },
+      yAxis: { type: 'value' },
+      series: [{
+        name: '收入',
+        type: 'line',
+        data: yData,
+        smooth: true,
+        areaStyle: { color: '#fbcfe8' },
+        lineStyle: { color: '#e11d48' },
+        itemStyle: { color: '#e11d48' }
+      }],
+      grid: { left: 40, right: 20, top: 30, bottom: 40 }
     }
+    incomeChartInstance.setOption(option)
+    incomeChartInstance.resize() // 强制刷新尺寸，确保事件生效
   }
   
-  // 计算最大收入值
-  const maxIncome = computed(() => {
-    return Math.max(...monthlyIncomeData.value.map(item => item.income || 0))
+  onMounted(() => {
+    nextTick(() => {
+      renderIncomeChart()
+    })
+  })
+  watch(monthlyIncomeData, () => {
+    nextTick(() => {
+      renderIncomeChart()
+    })
+  })
+  onBeforeUnmount(() => {
+    if (incomeChartInstance) {
+      incomeChartInstance.dispose()
+      incomeChartInstance = null
+    }
   })
   
   // 设置默认数据
@@ -2967,5 +2955,11 @@
   .total-net.negative {
     color: #dc2626 !important;
     background-color: #fee2e2 !important;
+  }
+
+  .chart-body, [ref="incomeChart"] {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 1;
   }
   </style>

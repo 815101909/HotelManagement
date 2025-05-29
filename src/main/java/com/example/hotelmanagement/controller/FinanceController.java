@@ -288,50 +288,33 @@ public class FinanceController {
      */
     @GetMapping("/trend/monthly")
     public ResponseEntity<List<Map<String, Object>>> getMonthlyTrend() {
-        // 获取当前年份
         Calendar cal = Calendar.getInstance();
         int currentYear = cal.get(Calendar.YEAR);
-        
-        // 获取所有已付款的预订
-        List<Booking> paidBookings = bookingService.getAllBookings().stream()
-                .filter(booking -> "PAID".equalsIgnoreCase(booking.getPaymentStatus()))
-                .collect(Collectors.toList());
-        
-        // 按月统计收入
+
+        // SQL分组统计每月收入
+        String sql = "SELECT MONTH(date) as month, SUM(amount) as income FROM income WHERE status = 'PAID' AND YEAR(date) = ? GROUP BY MONTH(date)";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, currentYear);
+
+        // 初始化每月收入为0
         Map<Integer, BigDecimal> monthlyIncome = new HashMap<>();
-        for (int month = 1; month <= 12; month++) {
-            monthlyIncome.put(month, BigDecimal.ZERO);
+        for (int i = 1; i <= 12; i++) monthlyIncome.put(i, BigDecimal.ZERO);
+
+        // 填充有数据的月份
+        for (Map<String, Object> row : rows) {
+            int month = ((Number)row.get("month")).intValue();
+            BigDecimal income = row.get("income") == null ? BigDecimal.ZERO : (BigDecimal)row.get("income");
+            monthlyIncome.put(month, income);
         }
-        
-        // 处理收入数据
-        for (Booking booking : paidBookings) {
-            Date createTime = booking.getCreateTime();
-            if (createTime == null) continue;
-            
-            cal.setTime(createTime);
-            int year = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH) + 1; // Calendar.MONTH是从0开始的
-            
-            // 只统计当年数据
-            if (year == currentYear) {
-                BigDecimal amount = booking.getTotalAmount();
-                if (amount == null) amount = BigDecimal.ZERO;
-                
-                monthlyIncome.put(month, monthlyIncome.get(month).add(amount));
-            }
-        }
-        
+
         // 构建结果
         List<Map<String, Object>> result = new ArrayList<>();
         String[] monthNames = {"1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"};
-        
-        for (int month = 1; month <= 12; month++) {
+        for (int i = 1; i <= 12; i++) {
             Map<String, Object> item = new HashMap<>();
-            item.put("month", monthNames[month - 1]);
-            item.put("income", monthlyIncome.get(month));
+            item.put("month", monthNames[i-1]);
+            item.put("income", monthlyIncome.get(i));
             result.add(item);
         }
-        
         return ResponseEntity.ok(result);
     }
     
