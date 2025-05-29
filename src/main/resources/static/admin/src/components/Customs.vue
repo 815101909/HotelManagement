@@ -10,7 +10,7 @@
             </svg>
             添加客户
           </button>
-          <button class="btn btn-secondary">
+          <button class="btn btn-secondary" @click="exportCustomers">
             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 10V16M12 16L9 13M12 16L15 13M17 21H7C5.89543 21 5 20.1046 5 19V5C5 3.89543 5.89543 3 7 3H12.5858C12.851 3 13.1054 3.10536 13.2929 3.29289L18.7071 8.70711C18.8946 8.89464 19 9.149 19 9.41421V19C19 20.1046 18.1046 21 17 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -692,6 +692,30 @@
       'other': '其他'
     }
     return map[idType] || idType || ''
+  }
+  
+  const exportCustomers = async () => {
+    try {
+      const res = await axios.get('/api/customers/export', {
+        responseType: 'blob'
+      })
+      let filename = '客户数据.xlsx'
+      const disposition = res.headers['content-disposition']
+      if (disposition) {
+        const match = disposition.match(/filename="?([^";]+)"?/)
+        if (match) filename = decodeURIComponent(match[1])
+      }
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', filename)
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    } catch (e) {
+      alert('导出失败')
+    }
   }
   </script>
   

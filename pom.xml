@@ -71,5 +71,11 @@
       <artifactId>logback-classic</artifactId>
       <version>1.2.11</version>
     </dependency>
+    <!-- EasyExcel -->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>easyexcel</artifactId>
+      <version>3.3.2</version>
+    </dependency>
   </dependencies>
 </project>

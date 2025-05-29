@@ -1,21 +1,33 @@
 package com.example.hotelmanagement.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+
 import java.util.Date;
 
 public class Customer {
     private Integer id;
+    @ExcelProperty("客户姓名")
     private String name;
     private String gender;
+    @ExcelProperty("联系电话")
     private String phone;
+    @ExcelProperty("身份证")
     private String idCard;
+    @ExcelProperty("电子邮箱")
     private String email;
+    @ExcelProperty("注册时间")
     private Date createTime;
+    @ExcelProperty("客户类型")
     private String type;
+    @ExcelProperty("客户状态")
     private String status;
     private String idType;
+    @ExcelProperty("地址")
     private String address;
     private String notes;
+    @ExcelProperty("消费金额")
     private Double spent; // 消费金额
+    @ExcelProperty("入住次数")
     private Integer visits; // 入住次数
 
     // getter/setter
