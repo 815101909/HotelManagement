@@ -153,10 +153,10 @@
                     <th>性别</th>
                     <th>电话</th>
                     <th>职位</th>
-                    <th>入职日期</th>
+                    <th style="min-width: 80px;">入职日期</th>
                     <th>薪资</th>
                     <th>状态</th>
-                    <th style="min-width: 80px;">创建时间</th>
+                    <th>创建时间</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -171,9 +171,9 @@
                     <td>{{ user.salary }}</td>
                     <td>{{ user.status == 1 ? '在职' : '离职' }}</td>
                     <td>{{ user.createTime ? user.createTime.replace('T', ' ').substring(0, 19) : '' }}</td>
-                    <td>
+                    <td class="action-btns">
                       <button class="btn btn-secondary" @click="openEditEmployeeModal(user)">编辑</button>
-                      <button class="btn btn-danger" @click="deleteEmployee(user)">删除</button>
+                      <button class="btn btn-danger" style="background-color: #e11d48; color: #fff; border: none;" @click="deleteEmployee(user)">删除</button>
                     </td>
                   </tr>
                 </tbody>
@@ -1080,7 +1080,7 @@
   /* 页面容器 */
   .page-container {
     padding: 1.5rem;
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
   }
   
@@ -1199,7 +1199,7 @@
   }
   
   .settings-section {
-    max-width: 800px;
+    max-width: 1400px;
   }
   
   .section-title {
@@ -1290,7 +1290,9 @@
   
   /* 用户表格 */
   .table-container {
-    overflow-x: auto;
+    width: 100%;
+    min-width: unset;
+    overflow-x: unset;
     margin-bottom: 1.5rem;
   }
   
@@ -1373,9 +1375,23 @@
     color: #d97706;
   }
   
-  .table-actions {
+  /* 操作列宽度固定，内容居中 */
+  .users-table th:last-child,
+  .users-table td.action-btns {
+    width: 120px;
+    min-width: 100px;
+    max-width: 140px;
+    text-align: center;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .action-btns {
     display: flex;
-    gap: 0.5rem;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
   }
   
   .action-btn {
@@ -1803,4 +1819,20 @@
     background: var(--secondary-bg);
     border-right: 1px solid var(--border-color);
   }
+  .action-btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+  .action-btns .btn {
+    padding: 2px 10px;
+    min-width: 40px;
+    font-size: 12px;
+    white-space: nowrap;
+    height: 28px;
+    line-height: 24px;
+    border-radius: 4px;
+  }
+
   </style>
