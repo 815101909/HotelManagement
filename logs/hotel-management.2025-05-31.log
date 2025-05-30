@@ -2412,3 +2412,123 @@
 2025-05-31 03:52:16.190 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
 2025-05-31 03:52:16.190 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
 2025-05-31 03:52:16.191 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:52:30.805 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:52:30.805 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:52:30.805 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:52:30.805 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:52:30.810 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:52:30.810 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:52:30.817 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:52:30.817 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:52:30.819 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:52:30.825 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:52:30.825 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:52:30.826 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:52:30.836 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:52:30.836 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:52:30.837 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:52:38.885 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:52:38.885 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:52:38.887 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:52:38.890 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:52:38.890 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:52:38.892 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:52:38.897 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:52:38.897 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:52:38.899 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:52:38.912 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:52:38.912 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:52:38.914 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:52:38.928 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:52:38.928 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:52:38.929 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:52:50.509 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:52:50.509 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:52:50.509 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:52:50.509 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:52:50.510 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:52:50.510 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:52:50.517 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:52:50.518 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:52:50.518 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:52:50.534 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:52:50.535 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:52:50.536 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:52:50.544 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:52:50.544 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:52:50.545 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:53:32.671 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:53:32.671 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:53:32.671 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:53:32.671 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:53:32.673 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:53:32.673 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:53:32.689 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:53:32.690 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:53:32.691 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:53:32.703 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:53:32.703 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:53:32.705 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:53:32.727 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:53:32.728 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:53:32.729 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:53:34.390 [http-nio-8080-exec-5] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:53:34.390 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:53:34.390 [http-nio-8080-exec-5] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:53:34.390 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:53:34.391 [http-nio-8080-exec-9] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:53:34.392 [http-nio-8080-exec-5] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:53:34.402 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:53:34.402 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:53:34.403 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:53:34.417 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:53:34.417 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:53:34.418 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:53:34.466 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:53:34.466 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:53:34.468 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:53:35.134 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:53:35.134 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:53:35.141 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:53:35.143 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:53:35.143 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:53:35.144 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:53:35.152 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:53:35.152 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:53:35.154 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:53:35.168 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:53:35.168 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:53:35.169 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:53:35.182 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:53:35.182 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:53:35.184 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:57:46.974 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:57:46.974 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:57:46.974 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:57:46.974 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:57:46.975 [http-nio-8080-exec-9] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:57:46.975 [http-nio-8080-exec-5] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:57:46.983 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:57:46.983 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:57:46.984 [http-nio-8080-exec-3] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:57:46.993 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:57:46.993 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:57:46.995 [http-nio-8080-exec-6] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:57:47.003 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:57:47.004 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:57:47.005 [http-nio-8080-exec-2] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 03:57:51.046 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==>  Preparing: SELECT * FROM employee
+2025-05-31 03:57:51.046 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - ==> Parameters: 
+2025-05-31 03:57:51.046 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:57:51.046 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:57:51.047 [http-nio-8080-exec-7] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:57:51.047 [http-nio-8080-exec-8] DEBUG c.e.h.mapper.EmployeeMapper.findAll - <==      Total: 3
+2025-05-31 03:57:51.055 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==>  Preparing: SELECT * FROM general_settings LIMIT 1
+2025-05-31 03:57:51.055 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - ==> Parameters: 
+2025-05-31 03:57:51.056 [http-nio-8080-exec-10] DEBUG c.e.h.m.G.getSettings - <==      Total: 1
+2025-05-31 03:57:51.066 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==>  Preparing: SELECT * FROM notification_settings LIMIT 1
+2025-05-31 03:57:51.066 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - ==> Parameters: 
+2025-05-31 03:57:51.067 [http-nio-8080-exec-1] DEBUG c.e.h.m.N.getSettings - <==      Total: 1
+2025-05-31 03:57:51.084 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
+2025-05-31 03:57:51.084 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
+2025-05-31 03:57:51.085 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
