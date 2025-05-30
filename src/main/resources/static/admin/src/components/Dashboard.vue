@@ -172,6 +172,16 @@ const revenueSources = ref([])
 
 const recentActivities = ref([])
 
+// 获取本月第一天和最后一天
+const getMonthRange = () => {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = now.getMonth() + 1
+  const firstDay = `${year}-${String(month).padStart(2, '0')}-01`
+  const lastDay = `${year}-${String(month).padStart(2, '0')}-${String(new Date(year, month, 0).getDate()).padStart(2, '0')}`
+  return { firstDay, lastDay }
+}
+
 // 格式化日期为后端需要的格式
 const formatDateForBackend = (date) => {
   const d = new Date(date)
@@ -221,12 +231,19 @@ const fetchDashboardData = async () => {
     const customerResponse = await axios.get('/api/admin/customers/stats')
     customerStats.value = customerResponse.data
     
-    // 收入统计数据
-    const revenueResponse = await axios.get('/api/admin/finance/details')
-    const financeData = revenueResponse.data
+    // 收入统计数据（统一用月度趋势接口）
+    const trendRes = await axios.get('/api/admin/finance/trend/monthly')
+    const monthNames = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+    const now = new Date()
+    const thisMonth = now.getMonth()
+    let monthlyAmount = 0
+    if (trendRes.data && Array.isArray(trendRes.data)) {
+      const thisMonthData = trendRes.data.find(item => item.month === monthNames[thisMonth])
+      monthlyAmount = thisMonthData ? Number(thisMonthData.income || 0) : 0
+    }
     revenueStats.value = {
-      monthlyAmount: financeData.totalIncome || 0,
-      yearOverYearGrowth: 0 // 暂时设为0，后续可以根据需求计算
+      monthlyAmount,
+      yearOverYearGrowth: 0
     }
     
     // 入住率趋势
