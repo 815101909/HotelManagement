@@ -587,7 +587,7 @@
   </template>
   
   <script setup>
-  import { ref, reactive, onMounted } from 'vue'
+  import { ref, reactive, onMounted, watch } from 'vue'
   import axios from 'axios'
   
   // 当前活动标签
@@ -624,11 +624,11 @@
   
   // 基本设置
   const generalSettings = reactive({
-    hotelName: '示例酒店',
-    hotelAddress: '北京市朝阳区建国路88号',
-    hotelPhone: '010-12345678',
-    hotelEmail: 'info@example.com',
-    hotelWebsite: 'https://www.example.com',
+    hotelName: '',
+    hotelAddress: '',
+    hotelPhone: '',
+    hotelEmail: '',
+    hotelWebsite: '',
     currency: 'CNY',
     timezone: 'Asia/Shanghai',
     language: 'zh-CN',
@@ -667,7 +667,9 @@
   }
   
   onMounted(() => {
+    fetchAllSettings()
     fetchUsers()
+    applyTheme(generalSettings.theme)
   })
   
   // 获取角色名称
@@ -831,31 +833,51 @@
   // 通知设置
   const notificationSettings = reactive({
     email: {
-      enabled: true,
-      server: 'smtp.example.com',
+      enabled: false,
+      server: '',
       port: 587,
-      username: 'notifications@example.com',
-      password: '********',
-      from: 'hotel@example.com'
+      username: '',
+      password: '',
+      from: ''
     },
     sms: {
       enabled: false,
-      provider: 'aliyun',
+      provider: '',
       apiKey: '',
       apiSecret: ''
     },
     events: {
-      booking: true,
-      checkin: true,
-      checkout: true,
-      payment: true
+      booking: false,
+      checkin: false,
+      checkout: false,
+      payment: false
     }
   })
   
   // 保存通知设置
-  const saveNotificationSettings = () => {
-    console.log('保存通知设置:', notificationSettings)
-    // 这里可以实现保存通知设置的逻辑
+  const saveNotificationSettings = async () => {
+    try {
+      const data = {
+        emailEnabled: notificationSettings.email.enabled,
+        emailServer: notificationSettings.email.server,
+        emailPort: notificationSettings.email.port,
+        emailUsername: notificationSettings.email.username,
+        emailPassword: notificationSettings.email.password,
+        emailFrom: notificationSettings.email.from,
+        smsEnabled: notificationSettings.sms.enabled,
+        smsProvider: notificationSettings.sms.provider,
+        smsApiKey: notificationSettings.sms.apiKey,
+        smsApiSecret: notificationSettings.sms.apiSecret,
+        eventBooking: notificationSettings.events.booking,
+        eventCheckin: notificationSettings.events.checkin,
+        eventCheckout: notificationSettings.events.checkout,
+        eventPayment: notificationSettings.events.payment
+      }
+      await axios.post('/api/settings/notification', data)
+      alert('保存成功')
+    } catch (e) {
+      alert('保存失败')
+    }
   }
   
   // 重置通知设置
@@ -866,11 +888,11 @@
   
   // 备份设置
   const backupSettings = reactive({
-    lastBackupTime: '2023-05-10 08:30:15',
-    status: 'success',
-    autoBackup: true,
+    autoBackup: false,
     frequency: 'daily',
-    retention: 7
+    retention: 7,
+    lastBackupTime: '',
+    status: ''
   })
   
   // 备份历史
@@ -927,9 +949,13 @@
   }
   
   // 保存基本设置
-  const saveGeneralSettings = () => {
-    console.log('保存基本设置:', generalSettings)
-    // 这里可以实现保存基本设置的逻辑
+  const saveGeneralSettings = async () => {
+    try {
+      await axios.post('/api/settings/general', generalSettings)
+      alert('保存成功')
+    } catch (e) {
+      alert('保存失败')
+    }
   }
   
   // 重置基本设置
@@ -938,10 +964,54 @@
     // 这里可以实现重置基本设置的逻辑
   }
   
+  // 保存备份设置
+  const saveBackupSettings = async () => {
+    try {
+      await axios.post('/api/settings/backup', backupSettings)
+      alert('保存成功')
+    } catch (e) {
+      alert('保存失败')
+    }
+  }
+  
   // 保存所有设置
-  const saveAllSettings = () => {
-    console.log('保存所有设置')
-    // 这里可以实现保存所有设置的逻辑
+  const saveAllSettings = async () => {
+    await saveGeneralSettings()
+    await saveNotificationSettings()
+    await saveBackupSettings()
+    alert('全部保存完成')
+  }
+  
+  // 获取设置
+  const fetchAllSettings = async () => {
+    try {
+      // 基本设置
+      const generalRes = await axios.get('/api/settings/general')
+      Object.assign(generalSettings, generalRes.data || {})
+      // 通知设置
+      const notifyRes = await axios.get('/api/settings/notification')
+      if (notifyRes.data) {
+        notificationSettings.email.enabled = notifyRes.data.emailEnabled
+        notificationSettings.email.server = notifyRes.data.emailServer
+        notificationSettings.email.port = notifyRes.data.emailPort
+        notificationSettings.email.username = notifyRes.data.emailUsername
+        notificationSettings.email.password = notifyRes.data.emailPassword
+        notificationSettings.email.from = notifyRes.data.emailFrom
+        notificationSettings.sms.enabled = notifyRes.data.smsEnabled
+        notificationSettings.sms.provider = notifyRes.data.smsProvider
+        notificationSettings.sms.apiKey = notifyRes.data.smsApiKey
+        notificationSettings.sms.apiSecret = notifyRes.data.smsApiSecret
+        notificationSettings.events.booking = notifyRes.data.eventBooking
+        notificationSettings.events.checkin = notifyRes.data.eventCheckin
+        notificationSettings.events.checkout = notifyRes.data.eventCheckout
+        notificationSettings.events.payment = notifyRes.data.eventPayment
+      }
+      // 备份设置
+      const backupRes = await axios.get('/api/settings/backup')
+      Object.assign(backupSettings, backupRes.data || {})
+    } catch (e) {
+      console.error('获取设置失败', e)
+    }
   }
   
   // 编辑员工模态框
@@ -971,6 +1041,38 @@
     } catch (e) {
       alert('删除失败')
     }
+  }
+  
+  // 主题切换函数
+  function applyTheme(theme) {
+    const root = document.documentElement
+    root.classList.remove('theme-light', 'theme-dark')
+    if (theme === 'light') {
+      root.classList.add('theme-light')
+    } else if (theme === 'dark') {
+      root.classList.add('theme-dark')
+    } else if (theme === 'auto') {
+      const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      root.classList.add(isDark ? 'theme-dark' : 'theme-light')
+    }
+  }
+  
+  // 监听主题变化
+  watch(
+    () => generalSettings.theme,
+    (val) => {
+      applyTheme(val)
+    },
+    { immediate: true }
+  )
+  
+  // 跟随系统变化自动切换
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (generalSettings.theme === 'auto') {
+        applyTheme('auto')
+      }
+    })
   }
   </script>
   
@@ -1684,5 +1786,21 @@
     .theme-selector {
       flex-wrap: wrap;
     }
+  }
+
+  .page-container {
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+  .settings-content {
+    background: var(--bg-color);
+    color: var(--text-color);
+  }
+  .btn-primary {
+    background: var(--primary-color);
+  }
+  .settings-nav {
+    background: var(--secondary-bg);
+    border-right: 1px solid var(--border-color);
   }
   </style>

@@ -3,12 +3,15 @@
     <!-- 侧边栏 -->
     <div class="sidebar" :class="{ 'sidebar-collapsed': sidebarCollapsed }">
       <div class="sidebar-header">
-        <div class="logo-small">
-          <!-- 房子图标 -->
-          <svg class="hotel-logo-small" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="logo-group">
+          <div class="logo-small">
+            <!-- 房子图标 -->
+            <svg class="hotel-logo-small" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 22V12H15V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="hotel-name">{{ hotelName }}</span>
         </div>
         <button class="toggle-sidebar" @click="toggleSidebar">
           <svg v-if="sidebarCollapsed" class="menu-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -132,6 +135,17 @@ const pageTitle = computed(() => {
     case '/finance': return '财务报表'
     case '/settings': return '系统设置'
     default: return ''
+  }
+})
+
+const hotelName = ref('')
+
+onMounted(async () => {
+  try {
+    const res = await axios.get('/api/settings/general')
+    hotelName.value = res.data.hotelName
+  } catch (e) {
+    hotelName.value = '酒店管理系统'
   }
 })
 
@@ -174,4 +188,26 @@ const logout = async () => {
 
 <style scoped>
 @import './dashboard-styles.css';
+.logo-group {
+  display: flex;
+  align-items: center;
+}
+.hotel-name {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 16px 12px 16px;
+}
+.logo-small {
+  display: flex;
+  align-items: center;
+}
 </style> 

@@ -1,0 +1,16 @@
+:root,
+.theme-light {
+  --bg-color: #fff;
+  --text-color: #1e293b;
+  --primary-color: #e11d48;
+  --secondary-bg: #f8fafc;
+  --border-color: #e2e8f0;
+}
+
+.theme-dark {
+  --bg-color: #1e293b;
+  --text-color: #f1f5f9;
+  --primary-color: #e11d48;
+  --secondary-bg: #111827;
+  --border-color: #334155;
+}
