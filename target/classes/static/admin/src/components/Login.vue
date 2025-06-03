@@ -72,9 +72,7 @@
           <div class="register-link">
             <p>
               还没有账号? 
-              <a href="#" @click.prevent="$emit('switch-to-register')">
-                注册新账号
-              </a>
+              <a href="#" @click.prevent="handleSwitchToRegister">注册新账号</a>
             </p>
           </div>
         </form>
@@ -125,6 +123,10 @@ const handleLogin = async () => {
   } finally {
     isLoading.value = false
   }
+}
+
+const handleSwitchToRegister = () => {
+  router.push('/register')
 }
 </script>
 

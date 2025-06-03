@@ -17,10 +17,10 @@
         <form @submit.prevent="handleRegister">
           <!-- 姓名 -->
           <div class="form-group">
-            <label for="name">姓名</label>
+            <label for="username">用户名</label>
             <input 
-              id="name" 
-              v-model="name" 
+              id="username" 
+              v-model="username" 
               type="text" 
               required
             />
@@ -105,7 +105,7 @@
           <div class="login-link">
             <p>
               已有账号? 
-              <a href="#" @click.prevent="$emit('switch-to-login')">
+              <a href="#" @click.prevent="handleSwitchToLogin">
                 返回登录
               </a>
             </p>
@@ -118,9 +118,11 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 // 表单数据
-const name = ref('')
+const username = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
@@ -135,7 +137,7 @@ const emit = defineEmits(['register-success', 'switch-to-login'])
 
 // 表单验证
 const isFormValid = computed(() => {
-  return name.value && 
+  return username.value && 
          email.value && 
          password.value && 
          password.value === confirmPassword.value && 
@@ -158,38 +160,35 @@ const handleRegister = async () => {
   successMessage.value = ''
   
   try {
-    // 模拟注册请求
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    // 简单的注册逻辑，实际应用中应该调用API
-    console.log('注册信息:', {
-      name: name.value,
-      email: email.value,
-      password: password.value
+    // 调用后端注册接口
+    const res = await axios.post('/api/register', {
+      username: username.value, // 如有username字段请替换
+      password: password.value,
+      // name: name.value,
+      email: email.value
+      // phone: phone.value // 如有手机号字段请补充
     })
-    
-    // 注册成功
     successMessage.value = '注册成功！请使用新账号登录'
-    
     // 清空表单
-    name.value = ''
+    username.value = ''
     email.value = ''
     password.value = ''
     confirmPassword.value = ''
     agreeTerms.value = false
-    
-    // 通知父组件注册成功
-    emit('register-success')
-    
-    // 3秒后自动切换到登录页面
+    // 3秒后自动跳转
     setTimeout(() => {
-      emit('switch-to-login')
+      router.push('/login')
     }, 3000)
   } catch (error) {
-    errorMessage.value = error.message || '注册失败，请稍后再试'
+    errorMessage.value = error.response?.data?.message || '注册失败，请稍后再试'
   } finally {
     isLoading.value = false
   }
+}
+
+const router = useRouter()
+const handleSwitchToLogin = () => {
+  router.push('/login')
 }
 </script>
 

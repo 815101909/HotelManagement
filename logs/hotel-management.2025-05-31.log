@@ -2532,3 +2532,6 @@
 2025-05-31 03:57:51.084 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==>  Preparing: SELECT * FROM backup_settings LIMIT 1
 2025-05-31 03:57:51.084 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - ==> Parameters: 
 2025-05-31 03:57:51.085 [http-nio-8080-exec-4] DEBUG c.e.h.m.B.getSettings - <==      Total: 1
+2025-05-31 04:03:42.615 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-05-31 04:03:42.625 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-05-31 04:03:42.633 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

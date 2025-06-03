@@ -1,0 +1,157 @@
+2025-06-03 09:51:39.735 [main] INFO  c.e.h.HotelManagementApplication - Starting HotelManagementApplication using Java 1.8.0_331 on LAPTOP-6LBVHJ60 with PID 19204 (D:\LearnProject\HotelManagement\target\classes started by 815101909 in D:\LearnProject\HotelManagement)
+2025-06-03 09:51:39.737 [main] DEBUG c.e.h.HotelManagementApplication - Running with Spring Boot v2.7.18, Spring v5.3.31
+2025-06-03 09:51:39.738 [main] INFO  c.e.h.HotelManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-03 09:51:40.232 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-03 09:51:40.251 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 9 ms. Found 0 JPA repository interfaces.
+2025-06-03 09:51:40.615 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-06-03 09:51:40.615 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.35] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.38]
+2025-06-03 09:51:40.616 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.35] using APR version [1.7.0].
+2025-06-03 09:51:40.616 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2025-06-03 09:51:40.616 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-06-03 09:51:40.631 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1q  5 Jul 2022]
+2025-06-03 09:51:40.637 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-03 09:51:40.638 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-03 09:51:40.639 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-06-03 09:51:40.786 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-03 09:51:40.786 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1014 ms
+2025-06-03 09:51:40.894 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-03 09:51:42.856 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-03 09:51:42.891 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 09:51:42.938 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 09:51:43.090 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 09:51:43.194 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 09:51:43.340 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 09:51:43.352 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 09:51:43.614 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 初始化订单表结构...
+2025-06-03 09:51:43.669 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - payment_status字段已存在
+2025-06-03 09:51:43.673 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - synced_to_finance字段已存在
+2025-06-03 09:51:43.690 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 更新自动删除income记录的触发器
+2025-06-03 09:51:43.831 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 触发器更新成功
+2025-06-03 09:51:43.832 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 订单表结构初始化完成
+2025-06-03 09:51:43.993 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-03 09:51:44.444 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-03 09:51:44.471 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-03 09:51:44.487 [main] INFO  c.e.h.HotelManagementApplication - Started HotelManagementApplication in 5.054 seconds (JVM running for 8.781)
+2025-06-03 10:07:55.637 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 10:07:55.640 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-03 10:07:55.646 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-03 10:08:03.820 [main] INFO  c.e.h.HotelManagementApplication - Starting HotelManagementApplication using Java 1.8.0_331 on LAPTOP-6LBVHJ60 with PID 27636 (D:\LearnProject\HotelManagement\target\classes started by 815101909 in D:\LearnProject\HotelManagement)
+2025-06-03 10:08:03.824 [main] DEBUG c.e.h.HotelManagementApplication - Running with Spring Boot v2.7.18, Spring v5.3.31
+2025-06-03 10:08:03.826 [main] INFO  c.e.h.HotelManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-03 10:08:04.407 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-03 10:08:04.428 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 8 ms. Found 0 JPA repository interfaces.
+2025-06-03 10:08:04.852 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-06-03 10:08:04.852 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.35] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.38]
+2025-06-03 10:08:04.852 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.35] using APR version [1.7.0].
+2025-06-03 10:08:04.853 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2025-06-03 10:08:04.853 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-06-03 10:08:04.859 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1q  5 Jul 2022]
+2025-06-03 10:08:04.865 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-03 10:08:04.866 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-03 10:08:04.867 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-06-03 10:08:05.034 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-03 10:08:05.034 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1169 ms
+2025-06-03 10:08:05.158 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-03 10:08:09.982 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-03 10:08:10.059 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 10:08:10.163 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 10:08:10.432 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 10:08:10.654 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 10:08:10.922 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 10:08:10.940 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 10:08:11.406 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 初始化订单表结构...
+2025-06-03 10:08:11.463 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - payment_status字段已存在
+2025-06-03 10:08:11.467 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - synced_to_finance字段已存在
+2025-06-03 10:08:11.470 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 更新自动删除income记录的触发器
+2025-06-03 10:08:11.499 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 触发器更新成功
+2025-06-03 10:08:11.500 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 订单表结构初始化完成
+2025-06-03 10:08:11.678 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-03 10:08:12.354 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-03 10:08:12.395 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-03 10:08:12.416 [main] INFO  c.e.h.HotelManagementApplication - Started HotelManagementApplication in 8.914 seconds (JVM running for 13.17)
+2025-06-03 10:12:33.325 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 10:12:33.327 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-03 10:12:33.335 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-03 10:12:39.929 [main] INFO  c.e.h.HotelManagementApplication - Starting HotelManagementApplication using Java 1.8.0_331 on LAPTOP-6LBVHJ60 with PID 29244 (D:\LearnProject\HotelManagement\target\classes started by 815101909 in D:\LearnProject\HotelManagement)
+2025-06-03 10:12:39.931 [main] DEBUG c.e.h.HotelManagementApplication - Running with Spring Boot v2.7.18, Spring v5.3.31
+2025-06-03 10:12:39.932 [main] INFO  c.e.h.HotelManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-03 10:12:40.461 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-03 10:12:40.482 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2025-06-03 10:12:40.870 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-06-03 10:12:40.871 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.35] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.38]
+2025-06-03 10:12:40.871 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.35] using APR version [1.7.0].
+2025-06-03 10:12:40.871 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2025-06-03 10:12:40.871 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-06-03 10:12:40.875 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1q  5 Jul 2022]
+2025-06-03 10:12:40.881 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-03 10:12:40.882 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-03 10:12:40.882 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-06-03 10:12:41.031 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-03 10:12:41.031 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1061 ms
+2025-06-03 10:12:41.145 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-03 10:12:43.168 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-03 10:12:43.202 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 10:12:43.250 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 10:12:43.388 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 10:12:43.522 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 10:12:43.687 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 10:12:43.698 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 10:12:43.899 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 初始化订单表结构...
+2025-06-03 10:12:43.920 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - payment_status字段已存在
+2025-06-03 10:12:43.921 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - synced_to_finance字段已存在
+2025-06-03 10:12:43.922 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 更新自动删除income记录的触发器
+2025-06-03 10:12:43.938 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 触发器更新成功
+2025-06-03 10:12:43.938 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 订单表结构初始化完成
+2025-06-03 10:12:44.021 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-03 10:12:44.281 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-03 10:12:44.316 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-03 10:12:44.339 [main] INFO  c.e.h.HotelManagementApplication - Started HotelManagementApplication in 4.744 seconds (JVM running for 7.959)
+2025-06-03 10:13:40.861 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 10:13:40.862 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-03 10:13:40.868 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-06-03 10:13:46.461 [main] INFO  c.e.h.HotelManagementApplication - Starting HotelManagementApplication using Java 1.8.0_331 on LAPTOP-6LBVHJ60 with PID 14776 (D:\LearnProject\HotelManagement\target\classes started by 815101909 in D:\LearnProject\HotelManagement)
+2025-06-03 10:13:46.463 [main] DEBUG c.e.h.HotelManagementApplication - Running with Spring Boot v2.7.18, Spring v5.3.31
+2025-06-03 10:13:46.464 [main] INFO  c.e.h.HotelManagementApplication - No active profile set, falling back to 1 default profile: "default"
+2025-06-03 10:13:46.906 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-03 10:13:46.925 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 JPA repository interfaces.
+2025-06-03 10:13:47.250 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2025-06-03 10:13:47.251 [main] INFO  o.a.c.core.AprLifecycleListener - An older version [1.2.35] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.38]
+2025-06-03 10:13:47.251 [main] INFO  o.a.c.core.AprLifecycleListener - Loaded Apache Tomcat Native library [1.2.35] using APR version [1.7.0].
+2025-06-03 10:13:47.251 [main] INFO  o.a.c.core.AprLifecycleListener - APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true], UDS [true].
+2025-06-03 10:13:47.251 [main] INFO  o.a.c.core.AprLifecycleListener - APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2025-06-03 10:13:47.254 [main] INFO  o.a.c.core.AprLifecycleListener - OpenSSL successfully initialized [OpenSSL 1.1.1q  5 Jul 2022]
+2025-06-03 10:13:47.259 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-06-03 10:13:47.260 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-06-03 10:13:47.261 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.83]
+2025-06-03 10:13:47.382 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-06-03 10:13:47.383 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 889 ms
+2025-06-03 10:13:47.492 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-06-03 10:13:50.190 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-06-03 10:13:50.222 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-03 10:13:50.260 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2025-06-03 10:13:50.379 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2025-06-03 10:13:50.471 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2025-06-03 10:13:50.605 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2025-06-03 10:13:50.616 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-03 10:13:50.839 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 初始化订单表结构...
+2025-06-03 10:13:50.865 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - payment_status字段已存在
+2025-06-03 10:13:50.866 [main] DEBUG c.e.h.s.impl.BookingServiceImpl - synced_to_finance字段已存在
+2025-06-03 10:13:50.868 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 更新自动删除income记录的触发器
+2025-06-03 10:13:50.886 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 触发器更新成功
+2025-06-03 10:13:50.886 [main] INFO  c.e.h.s.impl.BookingServiceImpl - 订单表结构初始化完成
+2025-06-03 10:13:50.963 [main] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-03 10:13:51.210 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-06-03 10:13:51.224 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path ''
+2025-06-03 10:13:51.232 [main] INFO  c.e.h.HotelManagementApplication - Started HotelManagementApplication in 5.035 seconds (JVM running for 7.768)
+2025-06-03 10:22:14.831 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-03 10:22:14.831 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-06-03 10:22:14.832 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-06-03 10:22:15.128 [http-nio-8080-exec-1] DEBUG c.e.h.m.AdminMapper.findByUsername - ==>  Preparing: SELECT * FROM admin WHERE username = ?
+2025-06-03 10:22:15.150 [http-nio-8080-exec-1] DEBUG c.e.h.m.AdminMapper.findByUsername - ==> Parameters: ksrgszk@qq.com(String)
+2025-06-03 10:22:15.163 [http-nio-8080-exec-1] DEBUG c.e.h.m.AdminMapper.findByUsername - <==      Total: 0
+2025-06-03 10:22:15.164 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.AdminMapper.findByEmail - ==>  Preparing: SELECT * FROM admin WHERE email = ?
+2025-06-03 10:22:15.165 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.AdminMapper.findByEmail - ==> Parameters: ksrgszk@qq.com(String)
+2025-06-03 10:22:15.166 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.AdminMapper.findByEmail - <==      Total: 0
+2025-06-03 10:22:15.167 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.AdminMapper.insertAdmin - ==>  Preparing: INSERT INTO admin (username, password, name, phone, email, create_time) VALUES (?, ?, ?, ?, ?, ?)
+2025-06-03 10:22:15.170 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.AdminMapper.insertAdmin - ==> Parameters: ksrgszk@qq.com(String), e10adc3949ba59abbe56e057f20f883e(String), test(String), null, ksrgszk@qq.com(String), 2025-06-03 10:22:15.167(Timestamp)
+2025-06-03 10:22:15.178 [http-nio-8080-exec-1] DEBUG c.e.h.mapper.AdminMapper.insertAdmin - <==    Updates: 1

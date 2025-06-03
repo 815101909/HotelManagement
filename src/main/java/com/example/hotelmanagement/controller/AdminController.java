@@ -37,4 +37,18 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Collections.singletonMap("message", "用户名或密码错误"));
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Admin admin) {
+        if (admin.getUsername() == null || admin.getPassword() == null || admin.getEmail() == null) {
+            return ResponseEntity.badRequest().body(Collections.singletonMap("message", "参数不完整"));
+        }
+        boolean success = adminService.register(admin);
+        if (success) {
+            return ResponseEntity.ok(Collections.singletonMap("message", "注册成功"));
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Collections.singletonMap("message", "用户名或邮箱已存在"));
+        }
+    }
 } 

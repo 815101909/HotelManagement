@@ -7,7 +7,7 @@ public class Admin {
     private String name;
     private String phone;
     private String email;
-    private java.util.Date lastLogin;
+    private java.util.Date createTime;
 
     // getter和setter
     public Integer getAdminId() { return adminId; }
@@ -22,6 +22,6 @@ public class Admin {
     public void setPhone(String phone) { this.phone = phone; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
-    public java.util.Date getLastLogin() { return lastLogin; }
-    public void setLastLogin(java.util.Date lastLogin) { this.lastLogin = lastLogin; }
+    public java.util.Date getCreateTime() { return createTime; }
+    public void setCreateTime(java.util.Date createTime) { this.createTime = createTime; }
 } 
